@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
+        int parallelogram=0;
+        if(p1[0]-p4[0]==p3[0]-p2[0] && p1[1]-p4[1]==p3[1]-p2[1]) parallelogram=1;
+        if(p1[0]-p2[0]==p3[0]-p4[0] && p1[1]-p2[1]==p3[1]-p4[1]) parallelogram=2;
+        if(p1[0]-p2[0]==p4[0]-p3[0] && p1[1]-p2[1]==p4[1]-p3[1]) parallelogram=3;
+        if(parallelogram==0) return false;
+        
+        bool rectangle=false;
+        if(parallelogram==1 && (p1[0]-p4[0])*(p1[0]-p3[0])+ (p1[1]-p4[1])*(p1[1]-p3[1])==0 )   
+              rectangle=true;
+        if(parallelogram==2 && (p1[0]-p2[0])*(p1[0]-p3[0])+ (p1[1]-p2[1])*(p1[1]-p3[1])==0 )   
+              rectangle=true;
+        if(parallelogram==3 && (p1[0]-p2[0])*(p1[0]-p4[0])+ (p1[1]-p2[1])*(p1[1]-p4[1])==0 )   
+              rectangle=true;
+        if(!rectangle) return false;
+        
+        bool square=false;
+        if(parallelogram==1 && (p1[0]-p4[0])*(p1[0]-p4[0])+ (p1[1]-p4[1])*(p1[1]-p4[1])== (p1[0]-p3[0])*(p1[0]-p3[0])+ (p1[1]-p3[1])*(p1[1]-p3[1]))
+            square=true;
+        if(parallelogram==2 && (p1[0]-p2[0])*(p1[0]-p2[0])+ (p1[1]-p2[1])*(p1[1]-p2[1])== (p1[0]-p3[0])*(p1[0]-p3[0])+ (p1[1]-p3[1])*(p1[1]-p3[1]))
+            square=true;
+        if(parallelogram==3 && (int)(pow((p1[0]-p2[0]),2)+ pow((p1[1]-p2[1]),2))== (int)(pow((p1[0]-p4[0]),2)+ pow((p1[1]-p4[1]),2)))
+            square=true;
+        if(!square) return false;
+        else if((p1[0]-p4[0])*(p1[0]-p4[0])+ (p1[1]-p4[1])*(p1[1]-p4[1])==0) return false;
+        else return true;       
+    }
+};
