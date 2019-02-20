@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+//recursively visit each node
+// the situation of current node c can be discussed as follows:
+    //1.  if the subtree with root c contains p or q
+    //2. if c is the bifurcation point, that is, the lowest common ancestor
+//so the return value of lowestCommonAncestor has double meanings
+//Similar to method_1,this method also uses recursion to traverse the tree
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL) return NULL;
+        if(root==p) return p;
+        if(root==q) return q;
+        TreeNode* left=lowestCommonAncestor(root->left,p,q);
+        TreeNode* right=lowestCommonAncestor(root->right,p,q);
+        if(left==NULL) return right;
+        if(right==NULL) return left;
+        return root;
+    }
+};

@@ -1,0 +1,35 @@
+class Solution {
+    //backtracking, the state is represented by count, the tree structure is represented by cand.
+    //for each time in the dfs, we need count[x]-- to enter the state and also need count[x]++ at the end to recover the state
+private:
+     void dfs(int x, int left) {
+        count[x]--;
+        if(left==0) perm++;
+        else{
+            for(auto j : cand[x]){
+                if(count[j]>0)
+                    dfs(j,left-1);
+            }
+        }
+        count[x]++;
+    }
+public:
+    unordered_map<int,int> count;
+    unordered_map<int,unordered_set<int>> cand;
+    int perm=0;
+    int numSquarefulPerms(vector<int>& A) {
+        for(int i : A) count[i]++;
+        for(auto i : count){
+            for(auto j: count){
+                int x=i.first, y=j.first, st=sqrt(x+y);
+                if(x+y==st*st) cand[x].insert(y);
+            }
+        }
+        for(auto i:count){
+            dfs(i.first,A.size()-1);
+        }
+        return perm;        
+    }
+
+   
+};
