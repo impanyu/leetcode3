@@ -1,0 +1,19 @@
+class Solution {
+    //greedy algorithm since there are only one possible answer if existing
+    //keep track of previous flips(here we just impose a signal on original A) and also track the flips within the sliding window(used to determine if we need to flip the current bit or not)
+public:
+       int minKBitFlips(vector<int>& A, int K) {
+           int flips_in_window=0;//count of flips in sliding window
+           int count=0;
+           for(int i=0;i<A.size();i++){
+               if(i>=K) flips_in_window-=A[i-K]/2;//substract the out of window flip
+               if(flips_in_window & 1 ^ A[i]==0){//flip the bit
+                   if(i+K>A.size()) return -1;
+                   A[i]+=2;
+                   flips_in_window++;
+                   count++;                 
+               }
+           }
+           return count;
+    }
+};
