@@ -1,0 +1,21 @@
+class Solution {
+//pseudo dp, cause only one place need to split logic, so it actually reduces to a lineary loop
+//the time complexity is thus only O(N)
+public:
+    bool validPalindrome(string s) {
+
+        for(int i=0,j=s.size()-1;i<=j;i++,j--){
+          if(s[i]!=s[j]){
+              int i1,j1,i2,j2;
+              for( i1=i,j1=j-1;i1<=j1;i1++,j1--)
+                  if(s[i1]!=s[j1]) break;
+              if(i1>j1) return true;
+              for( i2=i+1,j2=j;i2<=j2;i2++,j2--)
+                  if(s[i2]!=s[j2]) break;
+              if(i2>j2) return true;
+              else return false;             
+          }
+        }
+        return true;
+    }
+};
