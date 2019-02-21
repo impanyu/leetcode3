@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        int number_map[nums.size()];
+        vector<int> result(2,0);
+        for(int i=0;i<nums.size();i++){
+            number_map[i]=0;
+        }
+        for(auto i: nums) {
+            number_map[i-1]++;
+        }
+
+        for(int i=0;i<nums.size();i++){
+            if(number_map[i]==0)  result[1]=i+1;
+            else if(number_map[i]==2) result[0]=i+1;
+            
+        }
+        return result;
+        
+    }
+};
