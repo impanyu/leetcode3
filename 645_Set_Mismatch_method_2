@@ -1,0 +1,17 @@
+class Solution {
+//impose a extra signal on nums, negative means the index is visited and positive means the index is not visited.
+//constant memory consumption
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+       vector<int> results(2,0);
+       for(int i=0;i<nums.size();i++){
+           if(nums[abs(nums[i])-1]>0) nums[abs(nums[i])-1]*=-1;
+           else results[0]=abs(nums[i]);
+       }
+       for(int i=0;i<nums.size();i++){
+           if(nums[i]>0) results[1]=i+1;
+       }
+        return results;
+        
+    }
+};
