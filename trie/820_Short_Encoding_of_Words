@@ -1,0 +1,33 @@
+class Solution {
+public:
+    class TrieNode{
+        public:
+          TrieNode* letters[26]={0};
+          bool ifBranched=false;      
+          TrieNode* getChild(int i){
+            if(letters[i]==0){
+                letters[i]=new TrieNode();
+                ifBranched=true;
+            }
+            return letters[i];
+        }
+    };
+    
+    TrieNode* root=new TrieNode();
+    int count=0;
+    int minimumLengthEncoding(vector<string>& words) {
+        unordered_map<TrieNode*,int> lengthMap;
+        for(auto word: words){
+            TrieNode* p=root;
+            for(string::reverse_iterator itr=word.rbegin();itr<word.rend();itr++){
+                int currentLetter=(int)(*itr-'a');
+                p=p->getChild(currentLetter);
+                
+            }
+            lengthMap[p]=word.length();
+        }
+        for(auto e: lengthMap)
+            if(e.first->ifBranched==false) count+=e.second+1;
+        return count;
+    }
+};
