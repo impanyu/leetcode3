@@ -1,0 +1,18 @@
+class Solution {
+//first add all the words
+//then iterate through the word list and delete all substrings
+//sum the length of the left word
+public:
+    
+    int minimumLengthEncoding(vector<string>& words) {
+      unordered_set<string> stringSet;     
+      int count=0;
+      for(auto word:words) stringSet.insert(word);
+      for(auto word: words){
+          for(int i=1;i<word.length();i++)
+              stringSet.erase(word.substr(i));       
+      }
+        for(auto word: stringSet) count+=word.length()+1;
+        return count;
+    }
+};
