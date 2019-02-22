@@ -1,4 +1,5 @@
 class Solution {
+//use a trie, this is the naive solution
 public:
     class TrieNode{
         public:
