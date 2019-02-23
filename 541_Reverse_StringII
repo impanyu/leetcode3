@@ -1,0 +1,22 @@
+class Solution {
+//pay attention to the parameter passing. Here we use reference, never passing by value
+public:
+    void reverseSubStr(string& s, int i, int j){
+        int m=i,n=j-1;
+        while(m<n){       
+            char tmp=s[m];
+            s[m]=s[n];
+            s[n]=tmp;
+            m++;
+            n--;
+        }
+    }
+    string reverseStr(string s, int k) {
+        int i=0;
+        for(;i+2*k<s.length();i=i+2*k)
+            reverseSubStr(s,i,i+k);
+        reverseSubStr(s,i,min((int)s.length(),i+k));
+        return s;
+        
+    }
+};
