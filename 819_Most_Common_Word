@@ -1,0 +1,23 @@
+class Solution {
+// the use of istringstream eliminate char level reading
+//count words and find max count in the same loop
+public:
+    string mostCommonWord(string paragraph, vector<string>& banned) {
+        unordered_set<string> bword(banned.begin(),banned.end());
+        unordered_map<string,int> wordCount;
+        for(auto & c: paragraph) c=isalpha(c)?tolower(c):' ';
+        istringstream iss(paragraph);
+        string result;
+        string word;
+        int maxCount=0;
+        while(iss>>word){
+            if(bword.count(word)==0)
+                wordCount[word]++;
+            if(wordCount[word]>maxCount){
+                result=word;
+                maxCount=wordCount[word];
+            }
+        }
+        return result;
+    }
+};
