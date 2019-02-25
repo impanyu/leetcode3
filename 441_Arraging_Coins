@@ -1,0 +1,26 @@
+class Solution {
+//sum need to be long to accomodate large n
+//method 2 is based on substraction, thus eliminate the use of long
+public:
+    int arrangeCoins(int n) {
+       int k=1;
+       long sum=0;
+       while(true){
+           sum+=k;
+           if(sum>n) return k-1;
+           k++;        
+       }
+        
+    }
+};
+
+
+//method 2
+class Solution {
+public:
+     int arrangeCoins(int n) {
+        int i = 1;
+        while(n >= i) n -= i, i++;
+        return i - 1;
+    }
+}; 
