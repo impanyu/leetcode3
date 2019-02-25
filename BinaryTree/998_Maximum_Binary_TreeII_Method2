@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    // the new node should be the last node in the in order traversal, so it should only have left child and has a parent seeing it as right child
+    //this method 2 solve the problem in a recursive manner, rather than a iterative fansion of method 1
+public:
+    TreeNode* ask(TreeNode* root, TreeNode* newNode){// insert new node to the subtree of root and return the new root
+        if(root==NULL || root->val<newNode->val){
+            newNode->left=root;
+            return newNode;
+        }
+        root->right=ask(root->right,newNode);// continue right down
+        return root;
+    }
+    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
+        return ask(root, new TreeNode(val));       
+    }
+};
