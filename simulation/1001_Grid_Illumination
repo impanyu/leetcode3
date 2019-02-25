@@ -1,0 +1,36 @@
+class Solution {
+//use maps to mark the illuminated area counts, and use a set to keep lamps
+//unordered set need hash, use ordered set instead
+public:
+    vector<int> gridIllumination(int N, vector<vector<int>>& lamps, vector<vector<int>>& queries) { 
+        vector<int> result;
+        set<pair<int,int>> lampSet;
+        unordered_map<int,int> lightMapRow, lightMapColumn,lightMapDiag1,lightMapDiag2;
+     
+        for(auto e: lamps){
+            lampSet.insert(make_pair(e[0],e[1]));
+            lightMapRow[e[0]]++;
+            lightMapColumn[e[1]]++;
+            lightMapDiag1[e[0]+e[1]]++;
+            lightMapDiag2[e[0]-e[1]]++;
+        }
+        for(auto q: queries){
+            if(lightMapRow[q[0]]>0 || lightMapColumn[q[1]]>0 || lightMapDiag1[q[0]+q[1]]>0 ||lightMapDiag2[q[0]-q[1]]>0)
+                result.push_back(1);
+            else
+                result.push_back(0);
+            for(int i=-1;i<=1;i++) {
+                for(int j=-1;j<=1;j++){
+                    int a=q[0]+i;
+                    int b=q[1]+j;
+                    if(lampSet.count(make_pair(a,b))==0) break;                  
+                    lightMapRow[a]--;
+                    lightMapColumn[b]--;
+                    lightMapDiag1[a+b]--;
+                    lightMapDiag2[a-b]--;
+                }            
+            }     
+        }
+        return result;      
+    }
+};
