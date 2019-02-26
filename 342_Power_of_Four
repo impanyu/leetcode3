@@ -1,0 +1,24 @@
+public:
+    bool isPowerOfFour(int num) {
+    while(num >= 4 and num%4 == 0){
+        num >>= 2;
+    }   
+    if(num == 1)
+        return true;
+    else
+        return false;
+    }  
+};
+
+//method 2: without loop
+
+class Solution {
+//the use of bitset for counting 1s
+//the use of stoi to convert binary mask string to integer
+public:
+    bool isPowerOfFour(int num) {
+    int i=stoi("1010101010101010101010101010101",nullptr,2);
+    bitset<32> n(num);
+    return n.count()==1 && ((num & i) == num) ;
+    }  
+};
