@@ -1,0 +1,17 @@
+class Solution {
+// 1d row dp, reduced from 2d dp, which is a scan line iterative accumulation.
+public:
+    bool PredictTheWinner(vector<int>& nums) {
+        int N=nums.size();
+        int dp[nums.size()]={0};
+        for(int s=N-1;s>=0;s--){
+            for(int e=s+1;e<N;e++){
+                    int a=nums[s]-dp[e];    //dp[e] stands for (s+1,e)
+                    int b=nums[e]-dp[e-1]; //dp[e-1] stands for (s,e-1)
+                    dp[e]=max(a,b);
+                }
+            
+        }
+        return dp[N-1]>=0;
+    }
+};
