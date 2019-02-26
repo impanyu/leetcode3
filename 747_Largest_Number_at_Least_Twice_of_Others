@@ -1,0 +1,19 @@
+class Solution {
+//scan through the array, find the first and second largest number respectively
+//when update the first number, update second accordingly
+//compare the two numbers to return the answer
+public:
+    int dominantIndex(vector<int>& nums) {
+        pair<int,int> first=make_pair(-1,-1);
+        int second=-1;
+        for(int i=0;i<nums.size();i++){
+            if(first.second<nums[i]) {
+                first.first=i;
+                second=first.second;
+                first.second=nums[i];          
+            }
+            else if(second<nums[i]) second=nums[i];
+        }
+        return first.second>=second*2?first.first:-1;
+    }
+};
