@@ -1,5 +1,6 @@
 class Solution {
 //a greedy method, each addictive move can be reversely considered as a substractive move of only one element, to make sure the solution is smallest, we should always substract the elements other than the smallest one. So the final level will be as low as the initial smallest value.
+//the key for this problem is find its dual problem
 public:
     int minMoves(vector<int>& nums) {
         int minimum = INT_MAX, sum = 0;
