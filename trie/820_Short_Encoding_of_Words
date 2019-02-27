@@ -1,6 +1,11 @@
 class Solution {
 //use a trie, this is the naive solution
+//each trie node use ifBrached to keep if it is a leaf node
+//use lengthMap to keep track of all the word node for final count
 public:
+    TrieNode* root=new TrieNode();
+    int count=0;
+
     class TrieNode{
         public:
           TrieNode* letters[26]={0};
@@ -14,11 +19,10 @@ public:
         }
     };
     
-    TrieNode* root=new TrieNode();
-    int count=0;
+   
     int minimumLengthEncoding(vector<string>& words) {
         unordered_map<TrieNode*,int> lengthMap;
-        for(auto word: words){
+        for(auto word: words){ //insert each on the trie iteratively
             TrieNode* p=root;
             for(string::reverse_iterator itr=word.rbegin();itr<word.rend();itr++){
                 int currentLetter=(int)(*itr-'a');

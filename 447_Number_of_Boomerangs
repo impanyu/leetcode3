@@ -1,0 +1,19 @@
+class Solution {
+//the use of map to store the edge lengths for each point
+//clear the map for each point
+public:
+    int numberOfBoomerangs(vector<pair<int, int>>& points) {
+        unordered_map<int,int> dMap;
+        int result=0;
+        for(auto m: points){// check edges starting from point m
+            for(auto n: points){
+                int distance=pow(m.first-n.first,2)+pow(m.second-n.second,2);
+                dMap[distance]+=1;
+            }
+            for(auto e: dMap)
+                 result+=e.second*(e.second-1);
+            dMap.clear();
+        }
+        return result;
+    }
+};
