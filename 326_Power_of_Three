@@ -1,0 +1,12 @@
+iclass Solution {
+public:
+    bool isPowerOfThree(int n) {   
+        if(n<1) return false;
+        while(n%3==0) n/=3;
+        return n==1;      
+    }
+};
+
+
+//method_2 convert n to base 3 string, then count the number of 1
+
