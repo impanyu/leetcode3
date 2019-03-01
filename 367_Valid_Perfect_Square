@@ -1,0 +1,12 @@
+class Solution {
+    //Newton's method to get the root of x^2-num=0
+    //binary search is another way
+public:
+    bool isPerfectSquare(int num) {
+        long n=num;
+        while(n*n>num){
+            n=(n+num/n)/2;
+        }
+        return num==n*n;
+    }
+};
