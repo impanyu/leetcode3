@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        int longestLength=0;
+        unordered_map<char,int> charCount;
+        for(int i=0;i<s.length();i++)
+            charCount[s[i]]++;
+        for(auto e: charCount){    
+            longestLength+=e.second/2*2; //convert to even
+            if(e.second%2==1 && longestLength%2==0)  //only add once
+                longestLength++;
+        }
+        return longestLength;
+    }
+};
