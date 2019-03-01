@@ -1,0 +1,33 @@
+iclass Solution {
+//BFS with order
+//every time fetch the smallest value on priority queue and enqueue every possible children
+//also use a set to keep visited nodes
+public:
+    class Compare
+    {
+      public:
+         bool operator() (long a, long b)
+    {
+        return a>b;
+    } 
+   };
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        priority_queue<int,vector<long>,Compare> queue;
+        unordered_set<int> visited;
+        queue.push(1);
+        int count=0;
+        while(!queue.empty()){
+            long num=queue.top();
+            queue.pop();
+            if(visited.count(num)==0){
+                count++;
+                visited.insert(num);
+                if(count==n) return num;
+                for(auto p : primes){
+                        queue.push(p*num);
+                }
+            }
+        }
+        return 1;
+    }
+};
