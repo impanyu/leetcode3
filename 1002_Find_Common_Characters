@@ -1,0 +1,24 @@
+class Solution {
+//use a vector to store the minimal charcount through all the strings
+//for each char, print as many as charcount times 
+//convert char to string: string(1,char)
+public:
+    vector<string> commonChars(vector<string>& A) {
+        vector<int> charCount(26,100);     
+        for(auto s: A){
+            int localCharCount[26]={0};
+            for(int i=0;i<s.length();i++)
+                localCharCount[s[i]-'a']++;          
+            for(int k=0;k<26;k++)
+                charCount[k]=min(localCharCount[k],charCount[k]);            
+        }
+        vector<string> result;
+        for(int k=0;k<26;k++){          
+            while(charCount[k]>0){             
+                 result.push_back(string(1,(char)('a'+k)));
+                 charCount[k]--;
+            }
+        }
+        return result;
+    }
+};
