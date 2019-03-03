@@ -1,0 +1,17 @@
+class Solution {
+//1.no need to search every insertion point of "abc", thus not a dp problem
+//2.S.length() is a unsigned number, so pay attention to S.length()-3
+public:
+    bool isValid(string S) {
+        if(S=="abc")  return true;
+        bool result=false;
+        cout<<S.length()<<"\n";
+        for(int i=0;i<=(int)S.length()-3;i++){
+            if(S.substr(i,3)=="abc") {            
+                result=result || isValid(S.substr(0,i)+S.substr(i+3,S.length()-i));
+                return result;
+            }             
+        }
+        return result;
+    }
+};

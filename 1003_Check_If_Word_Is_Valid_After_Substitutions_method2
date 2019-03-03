@@ -1,0 +1,15 @@
+class Solution {
+//perfect O(n) solution, grasp the key structure of the string: a==b==c, and for each point i of the string, the substring(0,i) has a>=b>=c.
+public:
+    bool isValid(string S) {
+        int a=0,b=0,c=0;
+        for (int i=0;i<(int)S.length();++i){
+            if (S[i]=='a') a++;
+            else if (S[i]=='b') b++;
+            else c++;
+            if (a<b || b<c) return false;
+        }
+        if (a==b && b==c) return true;
+        return false;
+    }
+};
