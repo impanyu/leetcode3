@@ -1,0 +1,27 @@
+class Solution {
+//1. greedy method
+//2. A.size() in unsign, have to be converted to int
+//3. time complexity is O(n)
+//4. for every loop, make it clear which state variables are changed and what is the quit condition
+public:
+    int longestOnes(vector<int>& A, int K) {
+        int count=0;
+        int maxLength=0;
+        int j=-1;
+        int N=A.size()-1;
+        
+        for( int i=0;i<N;i++){            
+            if(i>=1){
+              count-=(A[i-1]==0);
+              count=max(0,count);
+            }
+            j=max(i-1,j);
+            while(j<N && (count<K || A[j+1]==1)){            
+                  j++;
+                  count+=(A[j]==0);
+            }
+           maxLength=max(maxLength,j-i+1);      
+        }       
+        return maxLength;
+    }
+};
