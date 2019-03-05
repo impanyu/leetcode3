@@ -1,0 +1,32 @@
+class Solution {
+//1.use arr to keep the reference to original array.
+//2.use sh to store the shuffled array
+//3.the use of rand()
+public:
+    vector<int> arr;
+    Solution(vector<int> nums) {
+        swap(arr, nums);
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    vector<int> reset() { 
+        return arr;
+    }
+    /** Returns a random shuffling of the array. */
+    vector<int> shuffle() {
+      vector<int> sh = arr;
+       for (auto i = 0; i < sh.size(); ++i) 
+            swap(sh[i], sh[rand() % (sh.size()-i)+i]);
+       return sh;
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * vector<int> param_1 = obj.reset();
+ * vector<int> param_2 = obj.shuffle();
+ */
+
+
+

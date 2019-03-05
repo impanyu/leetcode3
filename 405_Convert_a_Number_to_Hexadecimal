@@ -1,7 +1,7 @@
 class Solution {
 //1.must convert to unsigned int to accomodate num<0
-//2.shift by 4 bits
-//3. use string to store the results and clip accordingly
+//2.shift by every 4 bits
+//3.use string to store the results and clip accordingly
 public:
     unordered_map<int,char> hexmap;
     string toHex(int num) {
