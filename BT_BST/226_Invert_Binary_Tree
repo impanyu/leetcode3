@@ -17,3 +17,32 @@ public:
         return root;
     }
 };
+
+
+//method_2: iterative method
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        deque<TreeNode*> q;
+        q.push_back(root);
+        while(!q.empty()){
+            TreeNode* n=q.back();
+            q.pop_back();
+            if(n!=NULL){
+                swap(n->left,n->right);           
+                q.push_back(n->left);
+                q.push_back(n->right);
+            }
+        }
+        return root;
+    }
+};
