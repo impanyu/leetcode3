@@ -1,0 +1,34 @@
+class Solution {
+//1.moving window solution. O(n)
+//2.use map or array to store the mismatch count map
+//3.use mismatch to count the mismatch number
+//4.adjust the map and mismatch when moving window
+public:
+    vector<int> findAnagrams(string s, string p) {
+        unordered_map<char,int> charSet;
+        vector<int> ans;
+        int mismatch=0;
+        int i=0;
+        for(i=0;i<p.length();i++){
+            charSet[s[i]]++;
+            charSet[p[i]]--;
+        }
+        for(auto e : charSet)
+            if(e.second!=0)
+                mismatch++;
+        
+        for(i=0;i<=(int)(s.length()-p.length());i++){       
+            if(mismatch==0)  ans.push_back(i);
+            if(charSet[s[i]]==1) mismatch--;
+            else if(charSet[s[i]]==0) mismatch++;
+            charSet[s[i]]--;
+            
+            if(i<(int)(s.length()-p.length())){
+                if(charSet[s[i+p.length()]]==-1) mismatch--;
+                else if(charSet[s[i+p.length()]]==0) mismatch++;
+                charSet[s[i+p.length()]]++;            
+            }        
+        }           
+        return ans;
+    }
+};
