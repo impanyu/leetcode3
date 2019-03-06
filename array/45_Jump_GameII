@@ -1,0 +1,18 @@
+class Solution {
+//dp problem, from left to right
+    public:
+    int jump(vector<int>& nums) {
+        int jumps[nums.size()];
+        for(auto& m:jumps)  m=INT_MAX;
+        jumps[0]=0;
+        for(int i=0;i<nums.size();i++){  
+            for(int j=0;j<i;j++){
+                if(i<=j+nums[j] && jumps[j]<INT_MAX){
+                    jumps[i]=min(jumps[i],jumps[j]+1);
+                    break;//why this break
+                }
+            }          
+        }
+        return jumps[nums.size()-1];
+    }
+};
