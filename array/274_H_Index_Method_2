@@ -1,0 +1,16 @@
+class Solution {
+//method 2
+//use a extra array to store the histogram
+public:
+    int hIndex(vector<int>& citations) {
+        int hist[citations.size()+1]={0};
+        for(int p:citations)
+                hist[min(p,(int)citations.size())]++;
+        int sum=0;
+        for(int i=citations.size();i>=0;i--){
+            sum+=hist[i];
+            if(sum>=i) return i;
+        }
+        return 0;
+   }
+};

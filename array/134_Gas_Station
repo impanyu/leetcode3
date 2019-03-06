@@ -1,0 +1,27 @@
+class Solution {
+//1.find the last point after which the accumulative sum(represented by remaining) is positive
+//2.check the total accumulative sum, if it is positive, then we find a starting point
+
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int ans = 0;
+        int remaining = 0;
+        int check = 0;
+        for(int i=0;i<gas.size();i++)
+        {
+            check+=gas[i]-cost[i];
+            remaining+=gas[i]-cost[i];
+            if(remaining<0)
+            {
+                remaining = 0;
+                ans = i+1;
+            }
+        }
+        if(check<0)return -1;
+        return ans;
+    }
+};
+
+
+//another method please refer to https://www.geeksforgeeks.org/find-a-tour-that-visits-all-stations/
+//it uses two loops to control starting and ending point respectively
