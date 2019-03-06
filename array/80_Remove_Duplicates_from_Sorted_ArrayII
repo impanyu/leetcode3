@@ -1,0 +1,20 @@
+class Solution {
+//1.two pointers
+//2.pointer j is responsible for scrutinizing copy condition
+//3.for this problem, there are 3 conditions in total, do not forget j==0
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int i=0,j=0;//both sstart from 0
+        int sameCount=1;
+        int N=nums.size();
+        for(;j<N;j++){         
+            if(j>0 && nums[j]==nums[j-1]) sameCount++;
+            else sameCount=1;
+            if(j>0 && (nums[j]!=nums[j-1] || sameCount<=2) || j==0){//update condition
+                nums[i]=nums[j];
+                i++;
+            }   
+        }
+       return i;
+    }
+};
