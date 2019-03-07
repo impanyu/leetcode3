@@ -1,0 +1,14 @@
+class Solution {
+//greedy method, always keeps the laggest condition for future numbers
+//prev is the first value in the seq, max is the second one, if current num is larger than max, return true
+public:
+    bool increasingTriplet(vector<int>& nums) {
+         int max_ = INT32_MAX, prev = INT32_MAX;
+         for(const auto &n: nums) {
+            if(max_ < n) return true; // Check if previous works as solution before updating
+            else if(n > prev) max_ = n; // we have an increasing pair, with current value less than max_ but greater than prev, so we update max_
+            else prev = n; // number is less or equal to prev, so we simply update prev. max_ is still kept for the next future increasing pair check
+        }
+        return false;
+    }
+};
