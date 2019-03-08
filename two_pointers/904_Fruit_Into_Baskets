@@ -1,0 +1,26 @@
+class Solution {
+//1.typical two pointers(i,j)
+//2.two sub methods:
+//a.propelled by i, then for each i, check j(approach 1)
+//b.propelled by j, and keeps a starting pointer i.
+//3.this is method b.
+public:
+    int totalFruit(vector<int>& tree) {
+        int ans=0, i=0,j=0;
+        unordered_map<int,int> fruits;
+        
+        for(;j<tree.size();j++){
+            fruits[tree[j]]++;
+            while(fruits.size()>2){//loop until there are no more type fruits[i]
+                fruits[tree[i]]--;
+                if(fruits[tree[i]]==0)
+                    fruits.erase(tree[i]);
+                i++;
+            }
+            ans=max(ans,j-i+1);
+            
+            
+        }
+        return ans;
+    }
+};
