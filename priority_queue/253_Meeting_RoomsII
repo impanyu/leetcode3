@@ -1,0 +1,37 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Compare1{
+        public:
+        bool operator()(int a,int b) {
+             return a>b;
+        }
+    };
+class Compare2{
+        public:
+        bool operator()(Interval a,Interval b) {
+             return a.start<b.start;
+        }
+    };
+
+class Solution {
+//1.create two compare class, one to sort end, one to sort intervals.
+//2.for each iterval, if there's no conflict, we pop the old meeting, otherwise we allocate the new meeting directly.
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        priority_queue<int, vector<int>, Compare1> pq;
+        sort(intervals.begin(),intervals.end(),Compare2());
+        for(auto interval : intervals){
+             if(!pq.empty() && interval.start >= pq.top())//no conflict, can be allocated in the same room
+                 pq.pop();            
+              pq.push(interval.end);            
+        }
+        return pq.size();
+    }
+};
