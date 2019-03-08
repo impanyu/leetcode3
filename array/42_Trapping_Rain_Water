@@ -1,7 +1,7 @@
 class Solution {
 //1.compared with dp, for each position here we git rid of two values(right_max and left max) and only keeps the left max to the left of left pointer and right max to the right of right pointer
 //2. for each iteration, choose the smaller pointer to move left or right accordingly
-//3. always keeps rightmax<=left and leftmax<=right
+//3. always keeps lmax < max(r,rmax) and rmax < max(l,lmax)
 public:
     int trap(vector<int>& height) {
         int left=0, right=height.size()-1;
