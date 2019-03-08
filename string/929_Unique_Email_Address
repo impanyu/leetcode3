@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        ostringstream oss;
+        unordered_set<string> emailSet;
+        for(string email: emails){
+            bool domain=false;
+            bool ignore=false;
+            oss.str("");
+            for(char c: email){
+                if(c=='@') 
+                {
+                 domain=true;
+                 ignore=false;
+                 oss<<c;
+                }
+                else if(c=='+' && !domain){
+                    ignore=true;
+                }
+                else if((c!='.' && !domain && !ignore) || domain){
+                    oss<<c;
+                }
+             }
+            emailSet.insert(oss.str());
+        }
+        return emailSet.size();
+    }
+};
