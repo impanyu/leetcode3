@@ -1,5 +1,6 @@
 class Solution {
 //one dimensional dp, space complexity O(n)
+//strictly speaking, this is not a dp. it can be called a linearized recursion.
 public:
     string longestPalindrome(string s) {
         int N=s.length();
