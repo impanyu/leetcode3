@@ -1,0 +1,18 @@
+class Solution {
+public:    
+    bool isValid(string s) {
+        unordered_map<char,char> cmap;
+        cmap[')']='(';
+        cmap[']']='[';
+        cmap['}']='{';
+        stack<char> stack;
+        for(char c:s){
+            if(cmap.count(c)>0){//only cares if c is close bracket
+                if(stack.empty() || stack.top()!=cmap[c]) return false;
+                else stack.pop();
+            }
+            else stack.push(c);
+        }
+        return cmap.empty();
+    }
+};
