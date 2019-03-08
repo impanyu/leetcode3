@@ -35,7 +35,6 @@ public:
         maxGap = max(maxGap, bucket.minval - prevBucketMax);
         prevBucketMax = bucket.maxval;
     }
-
     return maxGap;
     }
 };
