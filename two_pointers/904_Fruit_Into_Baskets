@@ -7,7 +7,7 @@ class Solution {
 public:
     int totalFruit(vector<int>& tree) {
         int ans=0, i=0,j=0;
-        unordered_map<int,int> fruits;
+        unordered_map<int,int> fruits;//maps from tree type to the number of fruits of this type
         
         for(;j<tree.size();j++){
             fruits[tree[j]]++;

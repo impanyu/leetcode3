@@ -1,0 +1,19 @@
+class Solution {
+//1.two pointers, propelled by the second one, j
+//2.we use a 128 array to map the char to its positions
+//3.if the char mapping is previous stored, its possible the old char will appear [i,j], we just max charpos[s[j]]+1 and current i to shrink the substring if possible 
+public:
+    int lengthOfLongestSubstring(string s) {
+        int i=0,j=0;
+        int charpos[128];
+        int maxlength=0;
+        for(auto & c : charpos) c=-1;
+        for(;j<s.length();j++){
+            if( charpos[(int)s[j]]>=0)
+                i=max(charpos[(int)s[j]]+1,i);  //pay attention to this line      
+            maxlength=max(j-i+1,maxlength);
+            charpos[(int)s[j]]=j;
+        }
+        return maxlength;
+    }
+};
