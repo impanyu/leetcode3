@@ -1,4 +1,4 @@
-//method 1, use hashset
+//method 1, use hashset, two pointers i and j, propelled by both, and a implicit pointer k, which is implemented by j
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
@@ -26,28 +26,35 @@ public:
 
 
 //method 2, use sorting and convert to a sorted sum2
+//three pointers i,j,k. But j,k are indeed in one loop and goes towards each other from both ends.
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> ans;
         sort(nums.begin(),nums.end());
+        if(nums.size()<2) return ans;
         for(int i=0;i<nums.size()-2;i++){
             if(i>0 && nums[i]==nums[i-1]) continue;
              int j=i+1, k=nums.size()-1;
              while(j<k){
-                if(nums[j]+nums[k]==-nums[i]){
+                if(j>i+1 && nums[j]==nums[j-1]) {
+                    j++;
+                    continue; 
+                }
+                else if(nums[j]+nums[k]==-nums[i]){
                    vector<int> triplet;
                    triplet.push_back(nums[i]);
                    triplet.push_back(nums[j]);
                    triplet.push_back(-nums[i]-nums[j]);
-                   ans.push_back(triplet); 
+                   ans.push_back(triplet);
                    j++;
                    k--;
                 }
                 else if(nums[j]+nums[k]<-nums[i]) j++;
-                else k--; 
-            }    
+                else k--;
+            }
         }
         return ans;
     }
 };
+
