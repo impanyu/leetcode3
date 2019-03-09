@@ -1,0 +1,26 @@
+class Solution {
+//1.the use of iss to split every domain count pair
+//2.the use of find_first_of to search delimilator "."
+//3.size_t and string::npos
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        unordered_map<string,int> dmap;
+        vector<string> ans;
+        
+        string domain;
+        int count;
+        for(string pair:cpdomains){
+               istringstream iss(pair);
+               iss>>count>>domain;
+               size_t start=0;
+               while(start!=string::npos){
+                   if(start!=0) start++;
+                   dmap[domain.substr(start,string::npos)]+=count;
+                   start=domain.find_first_of(".",start+1);
+                }
+        }
+        for(auto m: dmap)
+            ans.push_back(to_string(m.second)+" "+m.first);
+        return ans;
+    }
+};
