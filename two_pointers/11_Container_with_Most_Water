@@ -1,0 +1,16 @@
+class Solution {
+//two pointers moving towards each other
+public:
+    int maxArea(vector<int>& height) {
+        int maxarea=0;
+        int l=0,r=height.size()-1;
+        while(l<r){
+            maxarea=max(maxarea,min(height[l],height[r])*(r-l));
+            if(height[l]>height[r])
+                r--;
+            else
+                l++;
+        }
+        return maxarea;
+    }
+};
