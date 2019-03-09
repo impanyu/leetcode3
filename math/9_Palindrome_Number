@@ -1,0 +1,13 @@
+class Solution {
+//this method has no overflow trouble, but pay attention to the precautions made(the first line).  (x!=0 && x%10==0) is necessary to prevent the last digit is 0.
+public:
+    bool isPalindrome(int x) {
+        if(x<0 || (x!=0 && x%10==0)) return false;
+        int revertedHalf=0;
+        while(revertedHalf<x){
+            revertedHalf=revertedHalf*10+x%10;
+            x/=10;
+        }
+        return x==revertedHalf || x==revertedHalf/10;
+    }
+};
