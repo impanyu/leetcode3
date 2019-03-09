@@ -8,7 +8,7 @@
  */
 class Solution {
 //floyd's tortoise and hare algorithm
-//can also use hashset for 2 hackup method
+//can also use hashset for a backup method
 public:
     ListNode *detectCycle(ListNode *head) {
         ListNode* tortoise =head;
