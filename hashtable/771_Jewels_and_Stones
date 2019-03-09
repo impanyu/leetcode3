@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        int count=0;
+        unordered_set<char> charSet;
+        for(char j: J) charSet.insert(j);
+        for(char s: S)
+            if(charSet.count(s)>0)
+                count++;
+        return count;
+    }
+};
