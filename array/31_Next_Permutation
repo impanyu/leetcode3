@@ -1,0 +1,15 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i=nums.size()-2;
+        for(;i>=0;i--)
+            if(nums[i]<nums[i+1])//there's the first i in a valley from right end
+                break;   
+        if(i>=0){//find the first nums[j] larger than nums[i] and swap i,j
+            int j=nums.size()-1;
+            while(j>i && nums[j]<=nums[i]) j--;
+            swap(nums[j],nums[i]);
+        }
+        sort(nums.begin()+i+1,nums.end());     
+    }
+};
