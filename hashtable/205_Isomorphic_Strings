@@ -1,0 +1,30 @@
+//method 1
+//use ms and mt to keep track of the last occurance index of each char
+bool isIsomorphic(string s, string t) {
+  int ms[128] = {}, mt[128] = {}, n = s.size(), i = 0;
+  for (; i < n && ms[s[i]] == mt[t[i]]; ++i) ms[s[i]] = mt[t[i]] = i + 1;
+  return i == n;
+}
+
+
+//method2
+class Solution {
+//1.refuse is easier to consider than accept
+//2. consider both directions.
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char,char> cmap;
+        unordered_map<char,char> rmap;
+        for(int i=0;i<s.size();i++){
+            if(cmap.count(s[i])>0 && cmap[s[i]]!=t[i])
+                return false;
+            else if(rmap.count(t[i])>0 && rmap[t[i]]!=s[i])
+                return false;
+            else{
+                cmap[s[i]]=t[i];
+                rmap[t[i]]=s[i];
+            }
+        }
+        return true;
+    }
+};
