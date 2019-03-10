@@ -1,0 +1,39 @@
+class Solution {
+//1.generate all statisfied HH:MM string and accumulate the smallest elapse
+//2.string to int: stoi
+//3.int to string: oss
+public:
+    string nextClosestTime(string time) {
+        unordered_set<int> allowed;
+        int minElapse=24*60;
+        int current=stoi(time.substr(0,2),NULL,10)*60;
+        current+=stoi(time.substr(3));
+        int ans=current;
+        for(char c: time)
+            if(c!=':'){
+                allowed.insert(c-'0');
+            }
+        
+        for(int h1: allowed){
+            for(int h2: allowed){
+                for(int m1: allowed){
+                    for(int m2: allowed){
+                       int hour= h1*10+h2;
+                       int min=m1*10+m2;
+                       if(hour<24 && min<60){
+                           int t=hour*60+min;
+                           int elapse=(t-current+24*60)%(24*60);
+                           if(minElapse > elapse && elapse>0){
+                               ans=t;
+                               minElapse=elapse;   
+                       } 
+                    }
+                }
+            }
+        }
+        stringstream oss;
+        oss<<setfill('0')<< setw(2)<<ans/60<<":"<<setw(2)<<setfill('0')<<ans%60;
+        return oss.str();
+                
+    }
+};

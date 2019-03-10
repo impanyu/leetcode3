@@ -1,0 +1,23 @@
+class Solution {
+//a simple divide and conquer
+//can also use backtracking
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        if(n==0) {
+            ans.push_back("");
+            return ans;   
+        }
+        else{
+            for(int l=0;l<n;l++){
+                vector<string> lefts=generateParenthesis(l);
+                vector<string> rights=generateParenthesis(n-1-l);
+                for(string left: lefts)
+                    for(string right:rights)
+                        ans.push_back("("+left+")"+right);
+            }
+        }
+        return ans;
+        
+    }
+};

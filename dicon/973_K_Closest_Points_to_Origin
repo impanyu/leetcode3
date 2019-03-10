@@ -1,0 +1,16 @@
+class Solution {
+//1.sorting method
+//2.the other method is partially sort, or divide and conquer, which use a pivot to divide and adjust the points and make sure the first K points are smallest
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        int dists[points.size()];
+        for(int i=0;i<points.size();i++)
+            dists[i]=points[i][0]*points[i][0]+points[i][1]*points[i][1];
+        sort(dists,dists+points.size());
+        vector<vector<int>> ans;
+        for(auto point: points)
+            if(point[0]*point[0]+point[1]*point[1]<=dists[K-1])
+                ans.push_back(point);
+        return ans;
+    }
+};

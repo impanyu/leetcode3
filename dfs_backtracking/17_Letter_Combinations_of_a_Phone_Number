@@ -1,0 +1,32 @@
+class Solution {
+//backtraking, keep tracking of 
+//1. graph structure: phone
+//2. node status: combination, index
+unordered_map<char,string> phone; 
+vector<string> ans;
+public:
+    vector<string> letterCombinations(string digits) {
+       phone['2']="abc";
+       phone['3']="def";
+       phone['4']="ghi";
+       phone['5']="jkl";
+       phone['6']="mno";
+       phone['7']="pqrs";
+       phone['8']="tuv";
+       phone['9']="wxyz";
+       string combination(digits.size(),' ');
+       if(digits.length()!=0) backtrack(combination,digits,0);
+       return ans;      
+    }
+    
+    void backtrack(string& combination, string& digits, int index){
+        if(index==digits.size())
+            ans.push_back(combination);
+        else{
+            for(char c: phone[digits[index]]){
+                combination[index]=c;
+                backtrack(combination,digits,index+1);
+            }
+        }
+    }
+};

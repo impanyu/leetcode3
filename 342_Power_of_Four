@@ -1,14 +1,13 @@
+class Solution {
 public:
     bool isPowerOfFour(int num) {
-    while(num >= 4 and num%4 == 0){
-        num >>= 2;
-    }   
-    if(num == 1)
-        return true;
-    else
-        return false;
-    }  
+    if(num<1) return false;
+    while( num%4 == 0) num >>= 2;
+    return num == 1;
+    }
 };
+
+
 
 //method 2: without loop
 

@@ -1,7 +1,8 @@
 class Solution {
 //1.first count the number of valid char
 //2.output char by char, only output '-' when count%K==0 and count>0
-//3. the use of toupper()
+//3.the use of toupper()
+//4.append string in the end is ok, but insert in the head will always incurr reallocating
 public:
     string licenseKeyFormatting(string S, int K) {
         string ans;
