@@ -1,0 +1,90 @@
+//method 1: iterate through each possible number and count the rotation cost for both sides
+const int INF = 1e9 + 5;
+
+class Solution {
+public:
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        int best = INF;
+
+        for (int same = 1; same <= 6; same++) {
+            int a_cost = 0, b_cost = 0;
+
+            for (int i = 0; i < n; i++) {
+                if (A[i] != same && B[i] != same) {
+                    a_cost = b_cost = INF;
+                    break;
+                }
+
+                if (A[i] != same)
+                    a_cost++;
+
+                if (B[i] != same)
+                    b_cost++;
+            }
+
+            best = min(best, min(a_cost, b_cost));
+        }
+
+        return best < INF / 2 ? best : -1;
+    }
+};
+
+
+//method 2:only iterate through the domino sequence, for each position accumulate the appear count and rotation cost for both sides
+#define FILL(x,v) memset(x,v,sizeof(x))
+class Solution {
+public:
+    int rotateCount(int a, int b, int t){
+        if(a==t) return 0;
+        else if(b==t) return 1;
+        else return 20000;
+    }
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+       int lower[7];
+       int upper[7];
+       int appear[7];
+       FILL(appear,0);
+       FILL(lower,0);
+       FILL(upper,0);
+       for(int i=0;i<A.size();i++){
+           appear[A[i]]++;
+           if(A[i]!=B[i]){
+               appear[B[i]]++;
+               lower[B[i]]++;
+               upper[A[i]]++;
+           }
+       }
+       for(int i=1;i<=6;i++){
+           if(appear[i]==A.size())
+               return min(upper[i],lower[i]);
+       }
+       return -1;
+    }
+};
+
+
+//method 3: iterate through all domino positions and accumulate the rotation cost for 4 possible situations
+class Solution {
+public:
+    int rotateCount(int a, int b, int t){
+        if(a==t) return 0;
+        else if(b==t) return 1;
+        else return 20000;
+    }
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+        int count1=0;
+        int count2=1;
+        int count3=0;
+        int count4=1;
+        for(int i=1;i<A.size();i++){
+           count1+=rotateCount(A[i],B[i],A[0]);
+           count2+=rotateCount(B[i],A[i],A[0]);
+           count3+=rotateCount(B[i],A[i],B[0]);
+           count4+=rotateCount(A[i],B[i],B[0]);            
+        }
+        int ans = min(min(count1,count2),min(count3,count4));
+        return ans>=20000?-1:ans;
+                
+    }
+};
