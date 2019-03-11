@@ -1,0 +1,37 @@
+//1. use a clas to represent the run length encoding of string 
+//2. compare the encoding of string S and each word in words, if the strechy condition is satisfied, ++ the count.
+class RLE{
+    public:
+        string key;
+        vector<int> counts;
+    
+        RLE(string s){
+            int prev=-1;
+            for(int i=0; i<s.length();i++){
+                if(i==s.length()-1 || s[i]!=s[i+1]){
+                    key+=s[i];
+                    counts.push_back(i-prev);
+                    prev=i;
+                }
+            }
+        }
+    
+    };
+class Solution {
+public: 
+    int expressiveWords(string S, vector<string>& words) {
+        RLE SRLE(S);
+        int ans=0;
+        for(string word :words){
+            RLE wordRLE(word);
+            if(SRLE.key!=wordRLE.key) continue;
+            int i=0;
+            for(;i<SRLE.counts.size();i++)
+                if(SRLE.counts[i]<wordRLE.counts[i] || SRLE.counts[i]<3 && wordRLE.counts[i]!=SRLE.counts[i])
+                    break;
+            if(i==SRLE.counts.size())
+                ans++;
+        }
+       return ans;  
+    }
+};
