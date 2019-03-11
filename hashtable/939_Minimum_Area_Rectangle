@@ -1,0 +1,27 @@
+class Solution {
+//1.count by diagonal, search through all possible diagnals, determine if it can form a rectangle. Accumulate min are on the way.
+//2. the encoding of a pair of number is neat
+//3.another similar method is to search through all possible vertical edge.
+public:
+    int minAreaRect(vector<vector<int>>& points) {
+        unordered_set<int> ps; 
+        int ans=INT_MAX;
+        for(auto point: points)
+            ps.insert(point[0]*40001+point[1]);
+        
+        for(int i=0; i<points.size();i++){
+            for(int j=i+1;j<points.size();j++){
+                if(points[i][0]!=points[j][0] && points[i][1]!=points[j][1]){
+                     int point3=40001*points[i][0]+points[j][1];
+                     int point4=40001*points[j][0]+points[i][1];
+                     if(ps.count(point3)>0 && ps.count(point4)>0){
+                         int area=abs(points[i][0]-points[j][0])*abs(points[i][1]-points[j][1]);
+                         ans=min(ans,area);
+                     }
+                }
+            }
+        }
+       return ans<INT_MAX?ans:0;
+        
+    }
+};

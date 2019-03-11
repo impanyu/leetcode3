@@ -1,0 +1,18 @@
+class Solution {
+//1.do not use a map! Because we need to represent a relation here rather than a mapping!!
+//2. do not forget check words1[i]!=words2[i]
+public:
+    bool areSentencesSimilar(vector<string>& words1, vector<string>& words2, vector<pair<string, string>> pairs) {
+        if(words1.size()!=words2.size()) return false;
+        unordered_set<string> wordMap;
+        for(int i=0;i<pairs.size();i++){
+            wordMap.insert(pairs[i].first+"#"+pairs[i].second);
+            wordMap.insert(pairs[i].second+"#"+pairs[i].first);
+        }
+        for(int i=0;i<words1.size();i++){
+            if((words1[i]!=words2[i]) && (wordMap.count(words1[i]+"#"+words2[i])==0))
+                 return false;
+        }
+        return true;
+    }
+};
