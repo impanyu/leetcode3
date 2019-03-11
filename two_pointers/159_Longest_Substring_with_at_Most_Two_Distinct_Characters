@@ -1,0 +1,22 @@
+class Solution {
+//use a map to store the occurence of a char, moving starting pointer if map size>2
+//another method is to use a map to store the char-->position map, every time map size>2, we find the leftmost starting point and get rid of it directly
+public:
+    int lengthOfLongestSubstringTwoDistinct(string s) {
+        unordered_map<char,int> charMap;
+        int i=0,j=0;
+        int maxLength=0;
+        for(;j<s.size();j++){
+            charMap[s[j]]++;
+            while(charMap.size()>2){
+                charMap[s[i]]--;
+                if(charMap[s[i]]==0) 
+                    charMap.erase(s[i]);
+                i++;          
+            }
+           if(j-i+1>maxLength)
+               maxLength=j-i+1;
+        }
+        return maxLength;
+    }
+};
