@@ -1,0 +1,16 @@
+class Solution {
+//1. it is only possible that B is a substring of A*q or A*(q+1), in which q= ceil(len(B)/len(A))
+//2. return q or q+1 if find a substring, otherwise return -1;
+public:
+    int repeatedStringMatch(string A, string B) {
+        int lenA=A.size();
+        int lenB=B.size();
+        int q=ceil((float)(lenB)/lenA);
+        string aq;
+        for(int i=1;i<=q;i++) aq+=A;
+        if(aq.find(B)!=string::npos) return q;
+        aq+=A;
+        if(aq.find(B)!=string::npos) return q+1;
+        return -1;
+    }
+};
