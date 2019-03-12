@@ -1,0 +1,34 @@
+#define FILL(a,v) memset(a,v,sizeof(a))
+class Solution {
+//1.Find unvisited position and start from there until this thread is blocked.
+//2.For each tread, use two pointers.
+public:
+    bool circularArrayLoop(vector<int>& nums) {
+        int N=nums.size();
+        if(N==0) return false;
+        int visited[N];
+        int threaded[N];
+        FILL(visited,0);
+        for(int s=0;s<N;s++){//start a new thread
+            if(visited[s]==1) continue;
+            int direction=nums[s];
+            int i=s,j=s;
+            int next;
+            FILL(threaded,0);
+            while(true){
+                    visited[j]=1;
+                    threaded[j]=1;
+                    next=(j+nums[j])%N;
+                    while(next<0) next=(next+N)%N;
+                    if(threaded[next]!=1 && visited[next]==1 || j==next) break;// next is a visited position or next is j itself, end this stread 
+                    else if(direction*nums[j]<0){//different direction, restart
+                        visited[j]=0;
+                        break;
+                    }
+                    else if(threaded[next]==1 ) return true;//same direction and find a visited
+                    else j=next;// default, move j to next  
+                }
+        }
+        return false;
+    }
+};
