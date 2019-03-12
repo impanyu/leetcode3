@@ -1,0 +1,80 @@
+Solution {
+//1.use two stacks, one for storing repetition number, one for previous string 
+//2.use res to keep track of current repeated string in the current inner most square brackets
+//3.the use of isdigit()
+public:
+    string decodeString(string str) {
+        stack<string> s;
+        stack<int> count;
+        string res="";
+        int c=0;
+        for(int i=0;i<str.length();i++){
+            if(isdigit(str[i])){
+                c=0;
+                while(isdigit(str[i])){
+                    c=c*10+(str[i]-'0');
+                    i++;
+                }
+                i--;
+                count.push(c);
+            }
+            else if(str[i]==']'){
+                string r=s.top();
+                s.pop();
+                int times=count.top();
+                count.pop();
+                while(times--){
+                    r+=res;
+                }
+                res=r;
+            }
+            else if(str[i]=='['){
+                s.push(res);
+                res="";
+            }
+            else{
+                res+=str[i];
+            }
+        }
+        return res;
+    }
+};
+
+
+
+//an alternative coding
+class Solution {
+public:
+    string decodeString(string s) {
+        if(s.size()==0) return "";
+        stack<int> replications;
+        stack<string> strings;
+        int rep=0;
+        string ans;
+        string tmp;
+        for(char c: s){
+            if(isdigit(c)){
+               cout<<rep<<"\n";
+               rep=rep*10+(int)(c-'0');
+            }
+            else if(c=='['){
+                replications.push(rep);
+                strings.push(tmp);
+                tmp="";
+                rep=0;
+            }
+            else if(c==']'){
+                int rep=replications.top();
+                replications.pop();
+                string top=strings.top();
+                strings.pop(); 
+                while(rep--)
+                    top+=tmp;
+                tmp=top;
+            }
+            else
+                tmp+=c;
+        }
+        return tmp;
+    }
+};
