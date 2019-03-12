@@ -1,0 +1,22 @@
+class Solution {
+//1.a greedy method, always look for the smallest card on hand and try to build the straight
+//2.use a map to represent the card on hand
+public:
+    bool isNStraightHand(vector<int>& hand, int W) {
+        if(hand.size()%W) return false;
+        map<int,int> cardCounts;
+        for(int card : hand)
+            cardCounts[card]++;
+        while(!cardCounts.empty()){
+             auto f=cardCounts.begin();
+             int firstcard=f->first;
+             int firstcount=f->second;
+             for(int i=firstcard;i<firstcard+W;i++){
+                 if(cardCounts.count(i)==0) return false;
+                 else cardCounts[i]--;
+                 if(cardCounts[i]==0) cardCounts.erase(i);
+             }
+        }
+        return true;
+    }
+};
