@@ -1,0 +1,26 @@
+class Solution {
+//0. a memorized dp solution
+//1. simulate the writing process row by row and keep track of the maximum words can be stored for each starting word
+//2. the final sentence counts is the total words / sentence length
+public:
+    int wordsTyping(vector<string>& sentence, int rows, int cols) {
+        unordered_map<int, int> umap;//map the word position to the count of words which can fit into  a row starting from the word.
+        int num = 0, n = sentence.size();
+        for(int i = 0; i < rows; i++){
+            int start = num % n;
+            if(umap.count(start) == 0){
+                int cnt = 0, len = 0;
+                for(int i = start; len<cols; i = (i+1) % n, cnt++){
+                    len += sentence[i].size() + 1;
+                    if(len>=cols+2)
+                       break;
+                }
+                num += cnt;
+                umap.emplace(start, cnt);
+            }
+            else
+                num += umap[start];
+        }
+        return num / n;
+    }
+};
