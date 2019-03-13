@@ -2,7 +2,10 @@
 # Summary
 1. Make good use of map or set
 2. Find ways to transform a problem or find its dual problem if possible
-3. For each loop, make it clear which states variables are changed each time and what is the quit condition.
+3. For each loop, make it clear which states variables are changed each time and what is the 
+   a. the condition after quit
+   b. the condition before first enter
+   c. the condition before each loop
 4. For each loop, make as simple as possible of each step of change, do not use parallel update and multiple if statement, it's easy to get confused and bug prone. Try to make the condition judgement simple.
 5. string to int: stoi or iss
 6. int to string: oss
@@ -13,9 +16,17 @@
     b.node visit order
     c.node information
 9. Try to form a image for the solution, especially the finally state/solution of the problem if possible.
-10. zero indexed array mid principle: size is odd, n/2 and (n-1)/2 are both mid
+10. Zero indexed array mid principle: size is odd, n/2 and (n-1)/2 are both mid
                                       size is even, n/2 is right mid, (n-1)/2 is left mid.
-11. 
+11. All programs are dynamic systems in which there are time varying states. Device which those states are and how to shift between each states is essential to algorithm design.
+12. Encoding of a pair of number E(a,b) = a*(max_value+1)+b
+13. For limited number of elements, a set can be represented by a bitmap
+14. For a full complete tree with n layers, the number of nodes is 2^p-1 and the number of nodes in the last layer is 2^(p-1)
+15. Utilize those constant quantity in problem, such as limited number of alphabet or limit of numbers in the array to reduce the searching space
+16
+
+
+
 
 
 
