@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+//1. for each layer, only compare the height of left and right substree
+//2. time complexity O(logn*logn)
+//3. another method is to treat the leaf nodes as [0,2^(depth-1)-1],and conduct a binary search on this array. Each step is to determine if the corresponding node is null
+public:
+    int countNodes(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        int leftHeight = depthByLeft(root->left);
+        int rightHeight = depthByLeft(root->right);
+        return leftHeight == rightHeight
+            ? pow(2, leftHeight)-1 + countNodes(root->right)+1
+            : pow(2, rightHeight)-1 + countNodes(root->left)+1;
+    }
+private:
+    int depthByLeft(TreeNode* node) {
+        int count = 0;
+        for (; node != nullptr; node = node->left) {
+            ++count;
+        }
+        return count;
+    }
+};
