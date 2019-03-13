@@ -1,0 +1,32 @@
+class Solution {
+//1. count all the characters, sort by the char count.
+//2. We can define a new class to incorporate char and count, or we can directly encode char and count into one int, this is convenient for sorting and we can extract it later.
+//3. from high to low count, resolve and print out each character. Once the char count is larger than the remaining sum, return empty
+//4. use a char buffer for printing.
+public:
+    string reorganizeString(string S) {
+        int N= S.size();
+        int counts[26];
+        char buffer[N+1];
+        for(int i=0;i<=N;i++) buffer[i]=0;
+        for(int i=0;i<26;i++) counts[i]=0;
+        for(char c: S) counts[c-'a']+=100;
+        for(int i=0;i<26;i++) counts[i]+=i;
+        sort(counts,counts+26);
+        
+        int t=1;
+        for(int code : counts){
+            int count=code/100;
+            char ch=(char)(code%100+'a');
+            if(count>(N+1)/2) return "";
+            while(count>0){
+                if(t>=N) t=0;
+                buffer[t]=ch;
+                t+=2;
+                count--;
+            } 
+        }
+        string ans=string(buffer);
+        return ans;
+    }
+};
