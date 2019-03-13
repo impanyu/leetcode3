@@ -1,0 +1,52 @@
+class Vote {
+public:
+    int person, time;
+    Vote(int p, int t) {
+        person = p;
+        time = t;
+    }
+};
+class TopVotedCandidate {
+//1. iterate through all the time steps and update the leader and time stamp accordingly
+//2. do a binary search on the result vector from 1.
+public:
+    vector<Vote> A; //leader for all times
+    TopVotedCandidate(vector<int> persons, vector<int> times) {
+        unordered_map <int, int> count;// the vote count for each person
+        int leader = -1;  // current leader
+        int m = 0;  // current number of votes for leader
+
+        for (int i = 0; i < persons.size(); ++i) {
+            int p = persons[i], t = times[i];
+            count[p]++;
+            
+            if (count[p]>= m) {
+                if (p != leader) {  // lead change
+                    leader = p;
+                    A.push_back(Vote(leader, t));
+                }
+                m = count[p];
+            }
+        }
+    }
+    
+     int q(int t) {// exactly the same as binary search, except return lo-1 once outside the loop
+        int lo = 0, hi = A.size()-1;
+        while (lo <= hi) {
+            int mi = (hi + lo) / 2;
+            if(A[mi].time == t) return A[mi].person;
+            else if (A[mi].time < t)
+                lo = mi + 1;
+            else
+                hi = mi-1;
+        }
+
+        return A[lo-1].person;
+    }
+};
+
+/**
+ * Your TopVotedCandidate object will be instantiated and called as such:
+ * TopVotedCandidate obj = new TopVotedCandidate(persons, times);
+ * int param_1 = obj.q(t);
+ */
