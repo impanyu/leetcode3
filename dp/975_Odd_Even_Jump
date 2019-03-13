@@ -1,0 +1,46 @@
+#define FILL(a,v) memset(a,v,sizeof(a))
+class Solution {
+//0. a bottom up dp problem
+//1. use tree map to store the values up until now. we can say map vals is for keeping the transfer structure
+//2. use two arrays(odd, even) to keep the state for each position
+
+public:
+    int oddEvenJumps(vector<int>& A) {
+        int N = A.size();
+        if (N <= 1) return N;
+        bool odd[N],even[N];
+        FILL(odd,0);
+        FILL(even,0);
+        odd[N-1] = even[N-1] = true;
+        
+        map<int, int> vals;//map from value to its position
+        vals[A[N-1]]=N-1;
+        for (int i = N-2; i >= 0; --i) {
+            int v = A[i];
+            
+            if (vals.count(v)>0) {
+                odd[i] = even[vals[v]];
+                even[i] = odd[vals[v]];
+            } 
+            else {
+                map<int,int>::iterator higher = vals.lower_bound(v);
+                map<int,int>::iterator lower;
+                
+                if(higher != vals.begin()) 
+                    lower= --vals.lower_bound(v);
+                else  lower=vals.end();
+                
+                if (lower != vals.end()) 
+                    even[i] = odd[vals[lower->first]];
+                if (higher != vals.end()) 
+                    odd[i] = even[vals[higher->first]];      
+            }
+            vals[v]=i;
+        }
+
+        int ans = 0;
+        for (bool b: odd)
+            if (b) ans++;
+        return ans;
+    }
+};
