@@ -1,0 +1,18 @@
+//0. one dimensional dp
+//1. N+1 positions in total, index i in dp indicates the starting point of a string
+#define FILL(a,v) memset(a,v,sizeof(a))
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int N=s.size();
+        bool dp[N+1];
+        FILL(dp,0);
+        dp[N]=1;
+        for(int i=N-1;i>=0;i--){
+            for(string word: wordDict)
+               if(N-i>=word.size() && word==s.substr(i,word.size()))
+                  dp[i] = dp[i+word.size()] | dp[i];          
+        }
+        return dp[0];
+    }
+};
