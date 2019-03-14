@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+//0.recursive method
+//1.for each node, explore its left and right child and calculate its own maximum inc and dec single sided sequnece length
+//2.accumulate longestpath for each node
+public:
+    int maxlength=0;
+    int longestConsecutive(TreeNode* root) {
+        longestSingleSidedPath(root);
+        return maxlength;
+        
+    }
+    vector<int> longestSingleSidedPath(TreeNode* root){ // first return value is inc, second is dec
+        if(root==NULL) return vector<int>(2,0);
+        int inc = 1, dec = 1;
+        if(root->left != NULL){
+            vector<int> l = longestSingleSidedPath(root->left);
+            if(root->val == root->left->val+1)
+                 dec=l[1]+1;
+            else if(root->val == root->left->val-1)
+                 inc=l[0]+1;
+        }
+        if(root->right !=NULL){
+            vector<int> r = longestSingleSidedPath(root->right);
+            if(root->val == root->right->val+1)
+                 dec=max(r[1]+1,dec);
+            else if(root->val == root->right->val-1)
+                 inc=max(r[0]+1,inc);
+        }
+        maxlength=max(maxlength,dec+inc-1);
+        vector<int> ans={inc,dec};
+        return ans;
+    }
+};
