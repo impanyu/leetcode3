@@ -1,0 +1,50 @@
+//1. Ordered by wage/quality ratio
+//2. use a priority queue(max heap) to store current adopted worker quality. aways pop largest quality out 
+//3. accumulate the minmum wage on the way
+//4. O(nlogn) time complexity
+class Worker {
+public:
+    int quality, wage;
+    Worker(){
+    }
+    Worker(int q, int w) {
+        quality = q;
+        wage = w;
+    }
+    double ratio() {
+        return (double) wage / quality;
+    }
+};
+
+bool compare (Worker a, Worker b) {
+        return a.ratio() < b.ratio();
+};
+
+class Solution {
+public:
+    double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int K) {
+        int N = quality.size();
+        Worker workers[N];
+        for (int i = 0; i < N; ++i)
+            workers[i] =Worker(quality[i], wage[i]);
+        sort(workers,workers+N,compare);
+        //for (int i = 0; i < N; ++i)
+        //cout<<workers[i].ratio()<<" ";
+
+        double ans = 1e10;
+        int sumq = 0;
+        priority_queue<int> pool;
+        for (Worker worker: workers) {
+            pool.push(worker.quality);
+            sumq += worker.quality;
+            if (pool.size() > K){
+                cout<<worker.ratio()<<" "<<pool.top()<<" ";
+                sumq -= pool.top();
+                pool.pop();
+            }
+            if (pool.size() == K)
+                ans = min(ans,  worker.ratio()*sumq);
+        }
+        return ans;
+    }
+};

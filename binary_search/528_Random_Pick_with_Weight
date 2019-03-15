@@ -1,0 +1,32 @@
+class Solution {
+//1.build the sum weights for binary search
+//2. pay attention to binary search method, when == is encountered, we still treat it as >.
+public:
+    vector<int> psum;
+    int tot = 0;
+
+    Solution(vector<int> w) {
+        for (int x : w) {
+            tot += x;
+            psum.push_back(tot);
+        }
+    }
+
+    int pickIndex() {
+        int targ = rand()%tot;
+        int lo = 0;
+        int hi = psum.size() - 1;
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (targ >= psum[mid]) lo = mid + 1;
+            else hi = mid-1;
+        }
+        return lo;
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */

@@ -23,7 +23,8 @@
 13. For limited number of elements, a set can be represented by a bitmap
 14. For a full complete tree with n layers, the number of nodes is 2^p-1 and the number of nodes in the last layer is 2^(p-1)
 15. Utilize those constant quantity in problem, such as limited number of alphabet or limit of numbers in the array to reduce the searching space
-16
+16. max_element() for find max element in an array, vector or other container
+17. In c++, priority_queue is maximum queue, whereas in java priority_queue is min queue. 
 
 
 
