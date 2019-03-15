@@ -1,0 +1,42 @@
+#define FILL(a,v) memset(a,v,sizeof(a))
+class DSU{
+//1.use a union-joint data structure to store all the edges encountered now.
+//2. once find a new edge already in the union find set, return the edge. 
+public:
+    int par[1001];
+    int rnk[1001];
+    DSU(){
+        FILL(rnk,0);
+        for(int i=0;i<1001;i++) par[i]=i;
+    }
+    int find(int x){
+        if(par[x] != x)
+            par[x] = find(par[x]);
+        return par[x];
+    }
+    bool uni(int x, int y){
+        int xr = find(x);
+        int yr = find(y);
+        if(xr == yr) return false;
+        else if(rnk[xr] < rnk[yr])
+            par[xr] = yr;
+        else if(rnk[xr] > rnk[yr])
+            par[yr] = xr;
+        else{
+            par[yr] = xr;
+            rnk[xr] += 1;
+        }
+        return true;
+    }
+};
+
+class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        DSU dsu;
+        for(auto edge : edges)
+            if(!dsu.uni(edge[0],edge[1]))
+                return edge;
+        return vector<int>();
+    }
+};
