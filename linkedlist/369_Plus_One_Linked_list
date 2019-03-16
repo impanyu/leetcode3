@@ -1,0 +1,35 @@
+/**
+ *Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+//1.use a vector to store the nodes pointers, then add 1 just as vector version problem 66
+//2.another method is two pointers
+public:
+    ListNode* plusOne(ListNode* head) {
+        int carry=1;
+        ListNode* p=head;
+        vector<ListNode*> nodelist;
+        while(p!=NULL){
+            nodelist.push_back(p);
+            p=p->next;
+        }
+        for(int i=nodelist.size()-1;i>=0;i--){
+            int v=nodelist[i]->val+carry;
+            carry=v/10;
+            ListNode* newnode=new ListNode(v%10);
+            newnode->next=p;
+            p=newnode;
+        }
+        if(carry>0){
+            ListNode* newnode=new ListNode(carry);
+            newnode->next=p;
+            p=newnode;
+        }
+        return p;
+    }
+};
