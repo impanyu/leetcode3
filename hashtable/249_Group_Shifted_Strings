@@ -1,0 +1,20 @@
+class Solution {
+//1.use a hashmap to store the map from group id to string vector
+//2.copy string vectors to ans
+public:
+    vector<vector<string>> groupStrings(vector<string>& strings) {
+       vector<vector<string>> ans; 
+       unordered_map<string,vector<string>> groupmap;
+       for(string s: strings){
+           string groupid;
+           for(int i=1;i<s.size();i++)
+               groupid+=to_string((s[i]-s[i-1]+26)%26);
+           groupid+="0";
+           groupmap[groupid].push_back(s);
+       }
+        for(auto p : groupmap){
+            ans.push_back(p.second);
+        }
+        return ans;
+    }
+};
