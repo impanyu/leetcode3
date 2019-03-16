@@ -1,0 +1,21 @@
+class Solution {
+//1.use edgemap to store the previous encountered horizontal edges from j to k, once encountered again, add the previous count to ans, which means there are count number of new combinations
+//2. time complexity: O(m*n^2), m,n are dimensions of grid 
+public:
+    int countCornerRectangles(vector<vector<int>>& grid) {
+       map<int,int> edgemap;
+       int ans=0;
+       for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                for(int k=j+1;k<grid[0].size();k++){
+                    if(grid[i][j]==1 && grid[i][k]==1){
+                        ans+=edgemap[200*j+k];
+                        edgemap[200*j+k]++;
+                    }
+                }
+            }
+        }
+        return ans;
+    
+    }
+};

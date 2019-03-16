@@ -25,7 +25,7 @@
 15. Utilize those constant quantity in problem, such as limited number of alphabet or limit of numbers in the array to reduce the searching space
 16. max_element() for find max element in an array, vector or other container
 17. In c++, priority_queue is maximum queue, whereas in java priority_queue is min queue. 
-
+18. There is a type of problem, in which we need to readapt the original spatial order to new spatial order, such as read a matrix/tree in some new order.  
 
 
 
