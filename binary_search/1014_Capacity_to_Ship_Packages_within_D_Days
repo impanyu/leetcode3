@@ -1,0 +1,33 @@
+class Solution {
+//1. D decreases with capacity increasing, we can consider this as a binary search problem with capacity as index.
+//2.for each sampling point, we compare the days with D, can adjust the high or low accordingly
+//3.time complexity is O(n*log(1e9)), whereas the brute force algorithm has a factorial complexity
+public:
+    int shipWithinDays(vector<int>& weights, int D) {
+        long long low = 0, high = 1e9;
+
+        while (low < high) {
+            long long mid = (low + high) / 2;
+            long long sum = 0;
+            int days = 1;
+            bool works = true;
+
+            for (int weight : weights)
+                if (weight > mid)
+                    works = false;
+                else if (sum + weight > mid) {
+                    days++;
+                    sum = weight;
+                } else {
+                    sum += weight;
+                }
+
+            if (works && days <= D)
+                high = mid;
+            else
+                low = mid + 1;
+        }
+
+        return low;
+    }
+};
