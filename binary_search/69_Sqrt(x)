@@ -1,0 +1,21 @@
+class Solution {
+//0.a variation of binary search
+//1.to prevent overflow, define mid as long
+//2. return ans rather than a in typical bs
+public:
+    int mySqrt(int x) {
+        int a=0, b=x;
+        long mid=0;
+        int ans;
+        while(a<=b){
+            mid=(a+b)/2;
+            if(mid*mid==x) return mid;
+            else if(mid*mid<x){
+                a=mid+1;
+                ans=mid;//pay attention to this line
+            }
+            else b=mid-1;       
+        }
+        return ans;//return ans rather than a
+    }
+};

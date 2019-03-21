@@ -11,7 +11,7 @@ public class LRUCache {
 
   private void addNode(DLinkedNode node) {
     /**
-     * Always add the new node right after head.
+     * Always add the new node right after head. Need to change 4 pointers due to double link
      */
     node.prev = head;
     node.next = head.next;
