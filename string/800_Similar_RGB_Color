@@ -1,0 +1,15 @@
+class Solution {
+public:
+    map<int,string> hexmap;
+    string similarRGB(string color) {
+         for(int i=0;i<10;i++)  hexmap[i] = string(1,'0'+ i);
+         for(int i=0;i<6;i++) hexmap[i+10]= string(1,'a'+ i);
+         return "#"+find_nearest(color.substr(1,2))+find_nearest(color.substr(3,2))+find_nearest(color.substr(5,2));      
+    }
+    
+    string find_nearest(string hex){
+        int n = stoi(hex, nullptr, 16);
+        n=n/17 + (n%17 > 8 ? 1:0); 
+        return (hexmap[17*n/16]+hexmap[17*n%16]);
+    }
+};
