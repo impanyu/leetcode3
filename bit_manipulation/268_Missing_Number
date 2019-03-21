@@ -1,0 +1,13 @@
+class Solution {
+//1.bit manipulation, the xored result is the missing number 
+public:
+    int missingNumber(vector<int>& nums) {
+        int original=0,actual=0;
+        for(int i=0; i<nums.size();i++) {
+            original^=i;
+            actual^=nums[i];
+        }
+        original^=nums.size();
+        return actual^original;
+    }
+};
