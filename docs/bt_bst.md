@@ -1,4 +1,5 @@
 ## [Same Tree](https://leetcode.com/problems/same-tree/)
+``` c++
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
@@ -9,6 +10,7 @@ public:
         
     }
 };
+```
 
 
 
