@@ -1,5 +1,5 @@
-#### leetcode
-### Summary
+# leetcode
+## Summary
 1. Make good use of map or set
 2. Find ways to transform a problem or find its dual problem if possible
 3. For each loop, make it clear which states variables are changed each time and what is the 
@@ -30,7 +30,7 @@
 20.For a type of problem which want to get a value a given another value b, and b is monotonous increasing or decreasing with a, we can treat a is a index with b and solve it like a typical binary search problem(1041)
 
 
-###Categoried Problems
-##[Two Pointers](test.md)
+## Categoried Problems
+### [Two Pointers](test.md)
 
 

@@ -1,5 +1,5 @@
-#### leetcode
-### Summary
+# leetcode
+## Summary
 1. Make good use of map or set
 2. Find ways to transform a problem or find its dual problem if possible
 3. For each loop, make it clear which states variables are changed each time and what is the 
@@ -11,4 +11,7 @@
 6. int to string: oss
 7. init an array to 0: int ms[128] = {}
    init an array to v:#define FILL(x,v) memset(x,v,sizeof(x))
+
+
+# test
 
