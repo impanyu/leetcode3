@@ -7,7 +7,7 @@
  * };
  */
 class Solution {
-//two pointers i,j
+//two pointers i,j, propelled by faster pointer j
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(head==nullptr) return head;
