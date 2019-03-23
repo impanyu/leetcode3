@@ -31,6 +31,7 @@
 21. Pay attention to over mature loop, where the loop conduct an extra step before quit 
 
 ## Categoried Problems
-### [Two Pointers](two_pointers.md)
-### [BT_BST](bt_bst.md)
+1. ### [Two Pointers](two_pointers.md)
+2. ### [BT_BST](bt_bst.md)
+3. ### [Math](math.md)
 

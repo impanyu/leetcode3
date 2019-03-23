@@ -1,0 +1,12 @@
+class Solution {
+//1. pay attention to over mature loop
+public:
+    int titleToNumber(string s) {
+        long ans=0;
+        for(int i=0;i<s.length();i++){
+           ans+= (s[i]-'A'+1);
+           ans*=26;
+        }
+        return ans/26;
+    }
+};
