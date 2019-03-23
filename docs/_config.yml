@@ -8,3 +8,5 @@ include:
   - CONTRIBUTING.md
   - README.md
   - index.md
+  - bt_bst.md
+  - two_pointers.md
