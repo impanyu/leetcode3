@@ -1,5 +1,6 @@
 ## [1021.Best Sightseeing Pair](https://leetcode.com/contest/weekly-contest-129/problems/best-sightseeing-pair/)
 1. update max of A[i]+i and max of ans each iteration
+```c++
 class Solution {
 public:
     int maxScoreSightseeingPair(vector<int>& A) {
@@ -16,3 +17,4 @@ public:
         
     }
 };
+```
