@@ -1,4 +1,5 @@
-
+## [1022. Smallest Integer Divisible by K](https://leetcode.com/contest/weekly-contest-129/problems/smallest-integer-divisible-by-k/)
+```c++
 class Solution {
 //1.try each N in mod space
 public:
@@ -16,3 +17,4 @@ public:
         return -1;
     }
 };
+```
