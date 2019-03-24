@@ -34,4 +34,5 @@
 1. ### [Two Pointers](two_pointers.md)
 2. ### [BT_BST](bt_bst.md)
 3. ### [Math](math.md)
-
+4. ### [String](string.md)
+5. ### [DP](dp.md)
