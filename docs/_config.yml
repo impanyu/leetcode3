@@ -10,3 +10,4 @@ include:
   - index.md
   - bt_bst.md
   - two_pointers.md
+  - dp.md
