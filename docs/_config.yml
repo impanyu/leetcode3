@@ -11,3 +11,4 @@ include:
   - bt_bst.md
   - two_pointers.md
   - dp.md
+  - string.md
