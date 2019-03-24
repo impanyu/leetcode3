@@ -12,13 +12,13 @@ public:
 };
 ```
 
-##[98.Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+## [98.Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 1. iterative in order traverse is shortest method
 2. each node only pop once.
 3. for each node, push all the left children of its right child.
+
 ```c++
 class Solution {
-
 public:
     bool isValidBST(TreeNode* root) {  
       stack<TreeNode*> s;
