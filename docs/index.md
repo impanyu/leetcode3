@@ -26,8 +26,8 @@
 16. max_element() for find max element in an array, vector or other container
 17. In c++, priority_queue is maximum queue, whereas in java priority_queue is min queue. 
 18. There is a type of problem, in which we need to readapt the original spatial order to new spatial order, such as read a matrix/tree in some new order.  
-19.__builtin_clz(n) get the number of lead zeros in n's binary representation.
-20.For a type of problem which want to get a value a given another value b, and b is monotonous increasing or decreasing with a, we can treat a is a index with b and solve it like a typical binary search problem(1041)
+19. __builtin_clz(n) get the number of lead zeros in n's binary representation.
+20. For a type of problem which want to get a value a given another value b, and b is monotonous increasing or decreasing with a, we can treat a is a index with b and solve it like a typical binary search problem(1041)
 21. Pay attention to over mature loop, where the loop conduct an extra step before quit 
 
 ## Categoried Problems
