@@ -28,3 +28,28 @@ public:
     }
 };
 ```
+
+
+## [929.Unique Email Addresses](https://leetcode.com/problems/unique-email-addresses)
+
+```
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        unordered_set<string> s;
+        for(string email : emails){
+            string ename;
+            bool inlocal=true;
+            bool ignore=false;
+            for(int i=0;i<email.size();i++){
+                if(email[i]=='@') inlocal=false;
+                if(email[i]=='+' && inlocal) ignore=true;
+                if((email[i] !='.' && inlocal && (!ignore)) || (!inlocal)) 
+                    ename+=email[i];    
+            }
+            s.insert(ename);
+        }
+        return s.size();
+    }
+};
+```
