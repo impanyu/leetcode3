@@ -36,3 +36,4 @@
 3. ### [Math](math.md)
 4. ### [String](string.md)
 5. ### [DP](dp.md)
+6. ### [Bit Manipulation](bit_manipulation.md)
