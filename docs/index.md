@@ -33,7 +33,8 @@
 ## Categoried Problems
 1. ### [Two Pointers](two_pointers.md)
 2. ### [BT_BST](bt_bst.md)
-3. ### [Math](math.md)
-4. ### [String](string.md)
-5. ### [DP](dp.md)
-6. ### [Bit Manipulation](bit_manipulation.md)
+3. ### [Binary Search](binary_search.md)
+4. ### [Math](math.md)
+5. ### [String](string.md)
+6. ### [DP](dp.md)
+7. ### [Bit Manipulation](bit_manipulation.md)
