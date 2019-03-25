@@ -38,3 +38,4 @@
 5. ### [String](string.md)
 6. ### [DP](dp.md)
 7. ### [Bit Manipulation](bit_manipulation.md)
+8. ### [Stack](stack.md)
