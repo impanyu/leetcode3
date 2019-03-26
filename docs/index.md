@@ -1,4 +1,4 @@
-# leetcode_2019
+# [leetcode_2019](https://impanyu.github.io/leetcode_2019)
 ## Summary
 1. Make good use of map or set
 2. Find ways to transform a problem or find its dual problem if possible
