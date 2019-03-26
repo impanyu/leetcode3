@@ -79,3 +79,23 @@ class Solution {
     }
 };
 ```
+
+## [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+1. Two pointer i, j propelled by j. i point to the current pos written to, j iterate through all the elements
+2. Copy only happens when a new element is encountered
+```c++
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if(nums.size()<=1) return nums.size();
+        int i=1;
+        for(int j=1;j<nums.size();j++){
+            if(nums[j]!=nums[j-1]){
+                nums[i]=nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+};
+```
