@@ -18,3 +18,33 @@ public:
     }
 };
 ```
+
+## [410.Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)
+1. 2D dp, first dimension is the ending position in nums and the second position is the number of splitted parts 
+2. Another way to view this problem: splitting feasibility is a monotonous function of w.r.t the minimum largest sum.
+Thus we can solve this problem using binary search.
+```c++
+#define FILL(a,v) memset(a,v,sizeof(a))
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int m) {
+        long dp[nums.size()+1][m+1];// 1-indexed
+        long sub[nums.size()+1];//1-indexed
+        sub[0]=0;
+        for(int i=0;i<=nums.size();i++)
+          for(int j=0;j<=m;j++)
+              dp[i][j]=INT_MAX;
+        for(int i=0; i<nums.size();i++)
+             sub[i+1]=sub[i]+nums[i];
+        
+        dp[0][0]=0;
+        for(int i=1; i<=nums.size();i++)
+            for(int j=1; j<=m;j++)
+                for(int k=0;k<i;k++)
+                    dp[i][j] = min(dp[i][j],max(dp[k][j-1],sub[i]-sub[k]));
+         
+        return dp[nums.size()][m];
+         
+    }
+};
+```
