@@ -83,6 +83,7 @@ class Solution {
 ## [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 1. Two pointer i, j propelled by j. i point to the current pos written to, j iterate through all the elements
 2. Copy only happens when a new element is encountered
+
 ```c++
 class Solution {
 public:
@@ -96,6 +97,31 @@ public:
             }
         }
         return i;
+    }
+};
+```
+
+## [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+1. Two pointers i j meet in the middle.
+
+```c++
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int i=0, j=s.size()-1;
+        while(i<j){
+            char a=tolower(s[i]);
+            char b=tolower(s[j]);
+            if(a==b){
+                i++;
+                j--;
+            } 
+            else if(!isalpha(a) && !isdigit(a)) i++;
+            else if(!isalpha(b) && !isdigit(b)) j--;
+            else return false;
+            
+        }
+        return true;
     }
 };
 ```
