@@ -44,4 +44,34 @@ public:
 };
 ```
 
-
+## [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
+1. Both recursive and iterative are ok
+2. The following method can also be modified to only use one shared stack
+```c++
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root==nullptr) return true;
+        stack<TreeNode*> l;
+        stack<TreeNode*> r;
+        l.push(root->left);
+        r.push(root->right);
+        while(!l.empty() && !r.empty()){
+            TreeNode* cl=l.top();
+            TreeNode* cr=r.top();
+            l.pop();
+            r.pop();
+            if(cl==nullptr && cr==nullptr) continue;
+            else if(cl==nullptr || cr==nullptr) return false;
+            else if(cl->val!=cr->val) return false;
+            else {
+                l.push(cl->left);
+                l.push(cl->right);
+                r.push(cr->right);
+                r.push(cr->left);
+            }
+        }
+        return true;    
+    }
+};
+```
