@@ -14,7 +14,7 @@ include:
   - string.md
   - bit_manipulation.md
   - stack.md
-
+  - hash_table.md
 
 
 

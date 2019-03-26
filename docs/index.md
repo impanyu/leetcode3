@@ -41,3 +41,4 @@
 6. ### [DP](dp.md)
 7. ### [Bit Manipulation](bit_manipulation.md)
 8. ### [Stack](stack.md)
+9. ### [Hash_Table](hash_table.md)
