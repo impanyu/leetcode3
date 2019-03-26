@@ -29,6 +29,8 @@
 19. __builtin_clz(n) get the number of lead zeros in n's binary representation.
 20. For a type of problem which want to get a value a given another value b, and b is monotonous increasing or decreasing with a, we can treat a is a index with b and solve it like a typical binary search problem(1041)
 21. Pay attention to over mature loop, where the loop conduct an extra step before quit 
+22. tolower() and toupper()
+23. isalpha() and isdigit()
 
 ## Categoried Problems
 1. ### [Two Pointers](two_pointers.md)
