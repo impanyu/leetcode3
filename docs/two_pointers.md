@@ -128,22 +128,31 @@ public:
 
 
 ## [Intersection of Two ArraysII](https://leetcode.com/problems/intersection-of-two-arrays-ii/)
-1. 
+1. two pointers i1, i2 without propeller 
 
 ```c++
 class Solution {
 public:
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
-        vector<int> ans;
-        unordered_map<int,int> nums1_map;
-        for(int n1: nums1) nums1_map[n1]++;
-        for(int n2: nums2){
-            if (nums1_map[n2] >0){
-                ans.push_back(n2);
-                nums1_map[n2]--;
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        int n1 = (int)nums1.size(), n2 = (int)nums2.size();
+        int i1 = 0, i2 = 0;
+        vector<int> res;
+        while(i1 < n1 && i2 < n2){
+            if(nums1[i1] == nums2[i2]) {
+                res.push_back(nums1[i1]);
+                i1++;
+                i2++;
             }
-        }        
-        return ans;
+            else if(nums1[i1] > nums2[i2]){
+                i2++;
+            }
+            else{
+                i1++;
+            }
+        }
+        return res;
     }
 };
 ```
