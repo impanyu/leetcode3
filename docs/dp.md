@@ -48,3 +48,31 @@ public:
     }
 };
 ```
+
+
+## [90. SubsetsII](https://leetcode.com/problems/subsets-ii/)
+1. No need to do back track, squeeze the tree into one dimension
+2. similar to dp
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        ans.push_back(vector<int>());
+        unordered_map<int,int> count_map;
+        for(int n :nums) count_map[n]++;
+        for(auto p: count_map){//for each unique number
+            int pre_count=ans.size();       
+                for(int i=0;i<pre_count;i++){//for each previous subset
+                    vector<int> new_vector(ans[i]);
+                    for(int j=p.second;j>0;j--){//push j times
+                        new_vector.push_back(p.first);
+                        ans.push_back(new_vector);
+                    }
+             }
+       }
+      return ans;
+    }
+};
+```
