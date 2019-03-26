@@ -35,7 +35,7 @@
 22. tolower() and toupper()
 23. isalpha() and isdigit()
 
-## Categoried Problems
+## Categorized Problems
 1. ### [Two Pointers](two_pointers.md)
 2. ### [BT_BST](bt_bst.md)
 3. ### [Binary Search](binary_search.md)
