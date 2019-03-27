@@ -157,4 +157,28 @@ public:
 };
 ```
 
+## [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+1. Two pointers first and second.
+2. First put first on the n+1 th position and then advance first and second at the same time. When first reach the end, second will be at the position prior to the node need to be deleted
 
+```c++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
+        ListNode* first=dummy;
+        ListNode* second=dummy;
+        while(n>=0){
+            first=first->next;
+            n--;
+        }
+        while(first!=nullptr){
+            first=first->next;
+            second=second->next;
+        }
+        second->next=second->next->next;
+        return dummy->next;
+    }
+};
+```
