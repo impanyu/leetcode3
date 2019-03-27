@@ -75,3 +75,42 @@ public:
     }
 };
 ```
+
+## [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)
+1. Essentially a inorder iterative traversal of BST.
+2. For each call of next(), only proceed for one step.
+  
+```c++
+class BSTIterator {
+public:
+    stack<TreeNode*> nodes;
+    BSTIterator(TreeNode* root) {
+        while(root!=nullptr){
+            nodes.push(root);
+            root=root->left;
+        }
+    }
+    
+    /** @return the next smallest number */
+    int next() {
+        TreeNode* current;
+        if(hasNext()) {
+            current=nodes.top();
+            nodes.pop();
+            TreeNode* right_child=current->right;
+            while(right_child!=nullptr){
+                        nodes.push(right_child);
+                        right_child=right_child->left;
+                    }    
+            
+            }
+        else return -1;
+        return current->val;   
+    }
+    
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return !nodes.empty();
+    }
+};
+```
