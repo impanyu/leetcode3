@@ -114,3 +114,31 @@ public:
     }
 };
 ```
+
+## [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/)
+1. Recursive solution. Each ft flatten the subtree and also return the last node in the pre-order.
+2. Then for each node, we insert the left flattened subtree between current node and the right subtree. 
+3. At last we return the last node of current subtree.  
+
+```c++
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        ft(root);
+    }
+    TreeNode* ft(TreeNode* root){
+         if(root==nullptr) return nullptr;
+         TreeNode* left_last=ft(root->left);
+         TreeNode* right_last=ft(root->right);
+         if(left_last!=nullptr) {
+              left_last->right=root->right;
+              root->right=root->left;
+         }
+         root->left=nullptr;
+         TreeNode* last_node=right_last==nullptr?left_last:right_last;
+         last_node=last_node==nullptr?root:last_node;
+         return last_node;
+    }
+};
+
+```
