@@ -15,7 +15,7 @@ include:
   - bit_manipulation.md
   - stack.md
   - hash_table.md
-
+  - array.md
 
 
 

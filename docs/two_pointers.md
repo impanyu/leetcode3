@@ -182,3 +182,28 @@ public:
     }
 };
 ```
+
+## [941. Valid Mountain Array](https://leetcode.com/problems/valid-mountain-array/)
+1.two pointers start from both ends, return true only if two pointers meet at a non-end position
+
+```c++
+class Solution {
+public:
+    bool validMountainArray(vector<int>& A) {
+        int i=0, j=A.size()-1;
+        while(i<j){
+           bool progress=false;
+           if(A[i]<A[i+1]) {
+               i++;
+               progress=true;
+           }
+           if(A[j]<A[j-1]) {
+               j--;
+               progress=true;
+           }
+            if(!progress) return false;
+        }
+        return i==j && (i!=0 && i!=A.size()-1);
+    }
+};
+```
