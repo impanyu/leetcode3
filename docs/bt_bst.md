@@ -142,3 +142,27 @@ public:
 };
 
 ```
+
+
+## [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+1. Use ans to store the max value of the length of path through each node
+2. No need to return both depth and ans in the same function
+3. Count nodes, not edges 
+
+```c++
+class Solution {
+public:
+    int ans=1;
+    int diameterOfBinaryTree(TreeNode* root) {
+        depth(root);
+        return ans-1;
+    }
+    int depth(TreeNode* root){
+        if(root==nullptr) return 0;
+        int left=depth(root->left);
+        int right=depth(root->right);
+        ans=max(ans,left+right+1);
+        return max(left,right)+1;     
+    }
+};
+```
