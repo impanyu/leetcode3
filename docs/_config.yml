@@ -16,6 +16,6 @@ include:
   - stack.md
   - hash_table.md
   - array.md
-
+  - greedy.md
 
 
