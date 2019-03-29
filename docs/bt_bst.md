@@ -166,3 +166,26 @@ public:
     }
 };
 ```
+
+## [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
+1. Recursive solution.
+2. If find the key, return the root of right children(or left in case no right child), and append left subtree to the left-most leave of right subtree.
+
+```c++
+ass Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==nullptr) return root;
+        if(key==root->val){
+            if(root->right==nullptr) return root->left;
+            TreeNode* p=root->right;
+            while(p->left!=nullptr) p=p->left;
+            p->left=root->left;
+            return root->right;
+        }      
+        else if(key<root->val) root->left=deleteNode(root->left,key);
+        else root->right=deleteNode(root->right,key);
+        return root;
+    }
+};
+```
