@@ -29,7 +29,7 @@ public:
 };
 ```
 
-##[406.Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/)
+## [406.Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/)
 1. add larger height first, then the number of people in front will reflect current order
 2. define comp as the sort function
 ```c++
