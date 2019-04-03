@@ -76,3 +76,27 @@ public:
     }
 };
 ```
+
+## [90. Number of Music Playlists](https://leetcode.com/problems/number-of-music-playlists/)
+1. Use an array to store the number of music playlists for i unique songs with j songs in list.
+2. Two previous conditions in transfer function. 
+```c++
+class Solution {
+public:
+    int numMusicPlaylists(int N, int L, int K) {
+        int mod=1e9+7;
+        long dp[N+1][L+1];
+        for(int i=0;i<=N;i++)
+            for(int j=0; j<=L;j++)
+                dp[i][j]=0;
+        dp[0][0]=1;
+        for(int i=1;i<=N;i++)
+            for(int j=1; j<=L;j++){
+                dp[i][j]=dp[i-1][j-1]*(N-i+1);
+                dp[i][j]+=dp[i][j-1]*max(i-K,0);
+                dp[i][j]%=mod;
+            }
+        return (int)dp[N][L];
+    }
+};
+```
