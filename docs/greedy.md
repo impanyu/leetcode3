@@ -28,3 +28,47 @@ public:
     }
 };
 ```
+
+##[406.Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/)
+1. add larger height first, then the number of people in front will reflect current order
+2. define comp as the sort function
+```c++
+class Solution {
+public:
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+          auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2){ 
+              return p1.first > p2.first || (p1.first == p2.first && p1.second < p2.second); 
+          };
+    sort(people.begin(), people.end(), comp);
+    vector<pair<int, int>> res;
+    for (auto& p : people) 
+        res.insert(res.begin() + p.second, p);
+    return res;
+    }
+};
+```
+
+
+## [134. Gas Station](https://leetcode.com/problems/gas-station/)
+1. find the last point after which the accumulative sum(represented by remaining) is positive
+2. check the total accumulative sum, if it is positive, then we find a starting point
+
+```c++
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost)    {
+       int total=0, remaining=0;
+       int start=0;
+       for(int i=0;i<gas.size();i++){
+           total+=gas[i]-cost[i];
+           remaining+=gas[i]-cost[i];
+           if(remaining<0){
+               remaining=0;
+               start=i+1;
+           }
+       }
+      return total<0?-1:start%gas.size();
+
+    }
+};
+```

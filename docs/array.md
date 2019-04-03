@@ -25,26 +25,4 @@ public:
 };
 ```
 
-## [134. Gas Station](https://leetcode.com/problems/gas-station/)
-1. find the last point after which the accumulative sum(represented by remaining) is positive
-2. check the total accumulative sum, if it is positive, then we find a starting point
 
-```c++
-class Solution {
-public:
-    int canCompleteCircuit(vector<int>& gas, vector<int>& cost)    {
-       int total=0, remaining=0;
-       int start=0;
-       for(int i=0;i<gas.size();i++){
-           total+=gas[i]-cost[i];
-           remaining+=gas[i]-cost[i];
-           if(remaining<0){
-               remaining=0;
-               start=i+1;
-           }
-       }
-      return total<0?-1:start%gas.size();
-        
-    }
-};
-```
