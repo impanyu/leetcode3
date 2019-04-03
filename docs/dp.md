@@ -100,3 +100,27 @@ public:
     }
 };
 ```
+
+## [837.New 21 Game](https://leetcode.com/problems/new-21-game/)
+1. Relaxed 21 game, instead of hit 21, player only need to hit a value in [K,N]
+2. dp[k]= 1/W*(dp[k+1]+dp[k+2]+...+dp[k+W])
+3. always keep a window size of W, and shift the window from right to left
+```c++
+class Solution {
+public:
+    double new21Game(int N, int K, int W) {
+        doubl dp=[N + W + 1];
+        // dp[x] = the answer when Alice has x points
+        for (int k = K; k <= N; ++k)
+            dp[k] = 1.0;
+
+        double S = min(N - K + 1, W);
+        // S = dp[k+1] + dp[k+2] + ... + dp[k+W]
+        for (int k = K - 1; k >= 0; --k) {
+            dp[k] = S / W;
+            S += dp[k] - dp[k + W];
+        }
+        return dp[0];
+    }
+};
+```
