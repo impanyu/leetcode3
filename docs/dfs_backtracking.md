@@ -55,3 +55,45 @@ public:
     }
 };
 ```
+
+
+## [489. Robot Room Cleaner](https://leetcode.com/problems/robot-room-cleaner/)
+1. recursive DFS to traverse each pos
+2. Use a map to store all visited pos. 
+```c++
+class Solution {
+public:
+    unordered_map<int, unordered_map<int, int>> data;
+    int x=0;
+    int y=0;
+    int dir=0;
+    int dx[4]={1, 0, -1, 0};
+    int dy[4]={0, 1, 0, -1};
+    void cleanRoom(Robot& robot) {
+       int old_x=x;
+       int old_y=y;
+       robot.clean();
+       for(int i=0;i<4;i++){
+           int new_x=x+dx[dir];
+           int new_y=y+dy[dir];
+             if(data[new_x][new_y]==0 && robot.move()){//enter a new position
+                 x=new_x;
+                 y=new_y;
+                 data[new_x][new_y]++;
+                 cleanRoom(robot);
+                 //robot back up
+                 robot.turnRight();
+                 robot.turnRight();
+                 robot.move();
+                 robot.turnRight();
+                 robot.turnRight();
+                 x=old_x;
+                 y=old_y;
+             } 
+           robot.turnRight();
+           dir=(dir+1)%4;
+       }
+       
+    }
+};
+```
