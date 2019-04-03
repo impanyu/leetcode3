@@ -106,10 +106,10 @@ public:
 2. dp[k]= 1/W*(dp[k+1]+dp[k+2]+...+dp[k+W])
 3. always keep a window size of W, and shift the window from right to left
 ```c++
-class Solution {
 public:
     double new21Game(int N, int K, int W) {
-        doubl dp=[N + W + 1];
+        double dp[N + W + 1];
+        FILL(dp,0);
         // dp[x] = the answer when Alice has x points
         for (int k = K; k <= N; ++k)
             dp[k] = 1.0;
