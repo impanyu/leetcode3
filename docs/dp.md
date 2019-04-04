@@ -143,3 +143,33 @@ public:
     }
 };
 ```
+
+## [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
+1. similar to house robber I, except in this case, we need to be careful with the corner cases.
+
+```c++
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==0) return 0;
+        if(nums.size()==1) return nums[0];
+        int pre_max=0, cur_max=0;
+        int ans;
+        for(int i=0;i<nums.size()-1;i++){
+            int tmp=cur_max;
+            cur_max=max(cur_max,pre_max+nums[i]);
+            pre_max=tmp;
+        }
+        ans=cur_max;
+        pre_max=0;
+        cur_max=0;
+        for(int i=1;i<nums.size();i++){
+            int tmp=cur_max;
+            cur_max=max(cur_max,pre_max+nums[i]);
+            pre_max=tmp;
+        }
+        
+        return max(ans,cur_max);
+    }
+};
+```

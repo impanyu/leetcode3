@@ -189,3 +189,27 @@ public:
     }
 };
 ```
+
+
+## [337. House Robber III](https://leetcode.com/problems/house-robber-iii/)
+1. Different from I and II, the topology is a binary tree, so we use recursive post order to solve it.
+2. Each time the helper function return two values, one for cur_max and one for the sum of sub_layers. 
+
+```c++
+class Solution {
+public:
+    int rob(TreeNode* root) {
+        return rb(root).first;
+    }
+    
+    pair<int,int> rb(TreeNode* root){
+        int cur_max=0;
+        if(root==nullptr) return make_pair(0,0);
+        pair<int,int> left=rb(root->left);
+        pair<int,int> right=rb(root->right);
+        int sub_layer=left.first+right.first;
+        cur_max=max(sub_layer,root->val+left.second+right.second);
+        return make_pair(cur_max,sub_layer);
+    }
+};
+```
