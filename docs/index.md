@@ -34,6 +34,9 @@
 21. Pay attention to over mature loop, where the loop conduct an extra step before quit 
 22. tolower() and toupper()
 23. isalpha() and isdigit()
+24. unordered_map<int,unordered_map<int,int>> can be used as a sparse 2d matrix
+25.
+
 
 ## Categorized Problems
 1. ### [Two Pointers](two_pointers.md)
