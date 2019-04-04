@@ -124,3 +124,22 @@ public:
     }
 };
 ```
+
+## [198.House Robber](https://leetcode.com/problems/house-robber/)
+1. no need to store the whole dp array, only need most recent two max value.
+
+```c++
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+       int prev_max = 0;
+       int curr_max = 0;
+       for(int x : nums) {
+          int temp = curr_max;
+          curr_max = max(prev_max + x, curr_max);
+          prev_max = temp;
+       }
+       return curr_max;
+    }
+};
+```
