@@ -117,3 +117,29 @@ public:
     }
 };
 ```
+
+## [46.Permutations](https://leetcode.com/problems/permutations/)
+1. only collect leaf nodes.
+2. swap in place
+
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<vector<int>> permute(vector<int>& nums) {   
+       pt(nums,0);
+       return ans;
+        
+    }   
+    void pt(vector<int>& nums,int first){     
+        if(first==nums.size())
+            ans.push_back(nums);
+        for(int i=first;i<nums.size();i++){
+          swap(nums[i],nums[first]);
+          pt(nums,first+1);
+          swap(nums[i],nums[first]);       
+       }
+    }
+};
+```
