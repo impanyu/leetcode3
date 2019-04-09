@@ -145,6 +145,9 @@ public:
 ```
 
 ## [79. Word Search](https://leetcode.com/problems/word-search/)
+1. current node is represented by i and j
+2. recursive solution
+
 
 ```c++
 class Solution {
@@ -171,3 +174,5 @@ bool dfs(vector<vector<char>>& board, int i, int j, string& word) {
   }       
 };
 ```
+
+
