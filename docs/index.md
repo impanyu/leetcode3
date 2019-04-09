@@ -51,3 +51,4 @@
 10. ### [Array](array.md)
 11. ### [Greedy](greedy.md)
 12. ### [DFS_Backtracking](dfs_backtracking.md)
+13. ### [Trie](trie.md)

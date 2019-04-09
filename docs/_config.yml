@@ -18,4 +18,4 @@ include:
   - array.md
   - greedy.md
   - dfs_backtracking.md
-
+  - trie.md
