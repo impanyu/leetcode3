@@ -46,3 +46,34 @@ public:
     }
 };
 ```
+
+## [729.My Calendar I]()
+1.store the calendar in a map
+2.use map iterator and reverse_iterator to get the pos before and after the insertion position
+
+
+```c++
+class MyCalendar {
+public:
+    map<int,int> calendar;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        map<int,int>::iterator i=calendar.begin();
+        map<int,int>::reverse_iterator j=calendar.rbegin();
+        for(;i!=calendar.end();i++){
+            if(start<=i->first) break;//next pointer
+        }
+        for(;j!=calendar.rend();j++){
+            if(start>=j->first) break;//prev pointer
+        }
+        if((j==calendar.rend() || j->second<=start) && (i==calendar.end() || end<=i->first)){
+            calendar[start]=end;
+            return true;
+        }
+        return false;
+    }
+};
+```
