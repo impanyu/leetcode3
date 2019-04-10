@@ -232,3 +232,77 @@ public:
   }    
 };
 ```
+
+## [527. Word Abbreviation](https://leetcode.com/problems/word-abbreviation/)
+1. first abbrev each word
+2. find the collision and solve the collision with prefix in a trie
+
+
+```c++
+class TrieNode{
+ public:
+    TrieNode* children[26];
+    int count=0;
+    TrieNode(){
+        for(int i=0;i<26;i++)
+            children[i]=0;
+    }
+};
+
+class indexed_word{
+    public:
+    string word;
+    int index;
+    indexed_word(string w, int i){
+        word=w;
+        index=i;
+    }
+};
+
+class Solution {
+public:
+    vector<string> wordsAbbreviation(vector<string>& dict) {
+        unordered_map<string,vector<indexed_word>> groups;
+        vector<string> ans(dict.size());
+        
+        int index=0;
+        for(string word: dict){
+            string ab= abbrev(word,0);
+            groups[ab].push_back(indexed_word(word,index));
+            index++;
+        }
+        
+        for(auto p: groups){
+            TrieNode* trie=new TrieNode();
+            vector<indexed_word> group=p.second;
+            for(indexed_word iw: group){
+                TrieNode* cur=trie;
+                for(char letter: iw.word.substr(1)){
+                    if(cur->children[letter-'a']==nullptr)
+                        cur->children[letter-'a']=new TrieNode();
+                    cur->count++;
+                    cur=cur->children[letter-'a'];
+                }
+            }
+            
+            for(indexed_word iw: group){
+                TrieNode* cur=trie;
+                int i=1;
+                for(char letter: iw.word.substr(1)){
+                    if(cur->count==1) break;
+                    cur=cur->children[letter-'a'];
+                    i++;
+                }
+                ans[iw.index]=abbrev(iw.word,i-1);
+            }
+        }
+        return ans;
+    }
+    
+    string abbrev(string word, int i){
+        int N=word.size();
+        if(N-i<=3) return word;
+        return word.substr(0,i+1)+to_string(N-i-2)+string(1,word[N-1]);
+    }    
+};
+```
