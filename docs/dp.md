@@ -282,3 +282,40 @@ public:
     }
 };
 ```
+
+
+## [471. Encode String with Shortest Length](https://leetcode.com/problems/encode-string-with-shortest-length/)
+1. accumulate each pair of starting point and length of a substring of s
+2. return dp[n][0]
+3. pay attention to the technique to find duplicate substring of a string
+
+
+```c++
+class Solution {
+public:
+    string encode(string s) {
+        int n = (int)s.size();  
+        if(!n)  return s;
+        // dp[N][i] means length is N, start from i
+        vector<vector<string>> DP(n+1,vector<string>(n,""));  
+        for(int i = 0; i < n; ++i)  DP[1][i] += s[i];
+        for(int N = 2; N <= n; ++N){
+            for(int i = 0; i+N <= n; ++i){
+                DP[N][i] = s.substr(i,N);
+                auto k = ( DP[N][i]+ DP[N][i]).find( DP[N][i],1);
+                if(k < DP[N][i].size()){
+                    string tmp = to_string(N/k)+"["+DP[k][i]+"]";
+                    if(tmp.size() < DP[N][i].size())    
+                        DP[N][i] = tmp;
+                }
+                for(int k=1;k<N;k++)  {
+                    string tmp = DP[k][i]+DP[N-k][i+k];
+                    if(tmp.size() < DP[N][i].size())    
+                        DP[N][i] = tmp;
+                }
+            }
+        }
+        return DP[n][0];
+ }
+};
+```
