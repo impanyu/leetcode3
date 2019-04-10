@@ -175,4 +175,36 @@ bool dfs(vector<vector<char>>& board, int i, int j, string& word) {
 };
 ```
 
+## [753. Cracking the Safe](https://leetcode.com/problems/cracking-the-safe/)
+1.dfs traversal on a graph, for each node, append the corresponding char.
 
+
+```c++
+class Solution {
+public:
+    unordered_set<string> seen;
+    string ans;
+    string crackSafe(int n, int k) {
+        if (n == 1 && k == 1) return "0";
+
+        string start ;
+        for (int i = 0; i < n-1; ++i)
+            start+='0';
+
+        dfs(start, k);
+        ans+=start;
+        return ans;
+    }
+     
+     void dfs(string node, int k) {
+        for (int x = 0; x < k; ++x) {
+            string nei = node + to_string(x);
+            if (!seen.count(nei)) {
+                seen.insert(nei);
+                dfs(nei.substr(1), k);
+                ans+=to_string(x);
+            }
+        }
+    }    
+};
+```
