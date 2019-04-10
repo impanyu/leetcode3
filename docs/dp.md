@@ -202,3 +202,33 @@ public:
     }
 };
 ```
+
+## [221. Maximal Square](https://leetcode.com/problems/maximal-square/)
+1. dp[i][j] represent the side length of the max square right-cornered at i,j
+
+
+```c++
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if(matrix.size()==0) return 0;
+        int rows=matrix.size(), cols=matrix[0].size();
+        int dp[rows][cols];
+        for(int i=0;i<rows;i++)
+            for(int j=0;j<cols;j++)
+                dp[i][j]=0;
+        
+        int max_side=0;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(i==0 || j==0) dp[i][j]=(matrix[i][j]=='1'?1:0);
+                else if(matrix[i][j]=='1')
+                    dp[i][j]=min(min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1])+1;
+                max_side=max(dp[i][j],max_side);
+              }
+        }
+        return max_side*max_side;
+    
+    }
+};
+```
