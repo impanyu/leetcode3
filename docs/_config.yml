@@ -19,3 +19,4 @@ include:
   - greedy.md
   - dfs_backtracking.md
   - trie.md
+  - bfs.md
