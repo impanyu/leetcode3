@@ -104,3 +104,36 @@ public:
     }
 };
 ```
+
+
+## [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+1. traverse through all the positions, and only check back when encountering a descending bar, which is a potential bottle-neck
+2. use a stack to store previous positions need to check.
+
+
+```c++
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        stack <int> stk;
+        stk.push(-1);
+        int maxarea = 0;
+        
+        for (int i = 0; i < heights.size(); ++i) {
+            while (stk.top() != -1 && heights[stk.top()] >= heights[i]){
+                int height=heights[stk.top()];
+                stk.pop();
+                maxarea = max(maxarea, height * (i - stk.top() - 1));            
+         }
+            stk.push(i);
+        }
+        while (stk.top() != -1){
+            int height=heights[stk.top()];
+            stk.pop();
+            maxarea = max(maxarea, height* ((int)heights.size() - stk.top() -1));
+
+        }
+        return maxarea;
+    }
+};
+```
