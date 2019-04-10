@@ -47,7 +47,7 @@ public:
 };
 ```
 
-## [729.My Calendar I]()
+## [729.My Calendar I](https://leetcode.com/problems/my-calendar-i/solution/)
 1.store the calendar in a map
 2.use map iterator and reverse_iterator to get the pos before and after the insertion position
 
@@ -74,6 +74,33 @@ public:
             return true;
         }
         return false;
+    }
+};
+```
+
+## [731. My Calendar II](https://leetcode.com/problems/my-calendar-ii/)
+1.use two vector of pairs to store calendar itself and overlaps respectively
+2.when book, check the overlap with any element in the overlaps, if exist, return false.
+
+```c++
+class MyCalendarTwo {
+public:
+    vector<pair<int,int>> calendar;
+    vector<pair<int,int>> overlaps;
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+       for(pair ov: overlaps)
+           if(ov.first<end && ov.second>start) return false;
+       for(pair iv: calendar)
+           if(iv.first<end && iv.second>start) 
+               overlaps.push_back(make_pair(max(start,iv.first),min(end,iv.second)));
+       
+       calendar.push_back(make_pair(start,end));
+       return true;
+        
     }
 };
 ```
