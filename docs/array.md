@@ -137,3 +137,49 @@ public:
     }
 };
 ```
+
+## [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
+1. reduced to problem 84, and for each row, we pass the histogram to 84, accumulate the maximal area 
+
+
+```c++
+class Solution {
+public:
+    int leetcode84(vector<int>& heights) {
+        stack <int> stk;
+        stk.push(-1);
+        int maxarea = 0;
+    
+        for (int i = 0; i < heights.size(); ++i) {
+            while (stk.top() != -1 && heights[stk.top()] >= heights[i]){
+                int height=heights[stk.top()];
+                stk.pop();
+                maxarea = max(maxarea, height * (i - stk.top() - 1));    
+         }   
+            stk.push(i);
+        }   
+        while (stk.top() != -1){
+            int height=heights[stk.top()];
+            stk.pop();
+            maxarea = max(maxarea, height* ((int)heights.size() - stk.top() -1));
+
+        }   
+        return maxarea;
+    }   
+
+    
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if(matrix.size()==0) return 0;
+        int ans=0;
+        vector<int> dp(matrix[0].size(),0);
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix[0].size();j++){
+                dp[j]=matrix[i][j]=='1'?dp[j]+1:0;
+            }
+            ans=max(ans,leetcode84(dp));
+        }
+        return ans;
+        
+    }
+};
+```
