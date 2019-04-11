@@ -207,3 +207,34 @@ public:
     }
 };
 ```
+
+## [904. Fruit into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+
+1. typical two pointers(i,j)
+2. two sub methods:
+   a. propelled by i, then for each i, check j(approach 1)
+   b. propelled by j, and keeps a starting pointer i.
+3. this is method b.
+
+```c++
+class Solution {
+public:
+    int totalFruit(vector<int>& tree) {
+        int ans=0, i=0,j=0;
+        unordered_map<int,int> fruits;//maps from tree type to the number of fruits of this type
+
+        for(;j<tree.size();j++){
+            fruits[tree[j]]++;
+            while(fruits.size()>2){//loop until there are no more type fruits[i]
+                fruits[tree[i]]--;
+                if(fruits[tree[i]]==0)
+                    fruits.erase(tree[i]);
+                i++;
+            }
+            ans=max(ans,j-i+1);
+
+        }
+        return ans;
+    }
+};
+```

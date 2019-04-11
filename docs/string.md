@@ -52,6 +52,24 @@ public:
         return s.size();
     }
 };
+
+//better solution using string.find() and string.replace()
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        unordered_set<string> email_set;
+        for(string email : emails){
+            int i=email.find('@');
+            string local = email.substr(0,i);
+            string domain=email.substr(i);
+            local= local.substr(0,local.find('+'));
+            while((i=local.find('.'))!=string::npos)
+                local.replace(i,1,"");
+             email_set.insert(local+domain);
+        }
+        return email_set.size();
+    }
+};
 ```
 
 ## [158. Read N Characters Given Read4 II- Call multiple times](https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/)

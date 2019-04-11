@@ -365,3 +365,48 @@ public:
     }
 };
 ```
+
+
+[518. Coin Change 2](https://leetcode.com/problems/coin-change-2/)
+1. pay attention to the loop order, we can not transfer mainly on amount, because we need to keep the order of the coins
+
+```c++
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        int dp[amount+1];
+        fill(dp,dp+amount+1,0);
+        dp[0]=1;
+        for(int j=0;j<coins.size();j++){
+          for(int i=1;i<=amount;i++){           
+                if(i>=coins[j]) dp[i]+=dp[i-coins[j]];
+                //cout<<dp[i]<<"\n";
+            }     
+        }          
+        return dp[amount];
+    }
+};
+```
+
+[322. Coin Change](https://leetcode.com/problems/coin-change/)
+1. here we only care about the minimal coins we need, so the accumulating order didn't matter.
+
+
+```c++
+class Solution {
+//a bottom up dp
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int dp[amount+1];
+        for(auto& d: dp) d=amount+1;
+        dp[0]=0;
+        for(int i=1;i<=amount;i++){
+            for(auto coin :coins){
+                if(i-coin>=0)
+                    dp[i]=min(dp[i],dp[i-coin]+1);
+            }
+        }
+        return dp[amount]>amount? -1:dp[amount];
+    }
+};
+```
