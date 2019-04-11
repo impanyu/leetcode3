@@ -20,3 +20,6 @@ include:
   - dfs_backtracking.md
   - trie.md
   - bfs.md
+  - simulation.md
+
+

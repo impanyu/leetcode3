@@ -243,3 +243,47 @@ public:
     
 };
 ```
+
+## [497. Random Point in Non-overlapping Rectangles](https://leetcode.com/problems/random-point-in-non-overlapping-rectangles/)
+1. randomly sample a point between 0 to tot
+2. find the rect through binary search
+3. pick the point within the rect
+4. pay attention to the format of binary search, which find the upper_bound of a value
+
+
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> rects;
+    vector<int> psum;
+    int tot=0;
+    Solution(vector<vector<int>>& rects) {
+        this->rects=rects;
+        for(auto x : rects){
+            tot+=((x[2]-x[0])+1)*(x[3]-x[1]+1);
+            psum.push_back(tot);
+        }
+    }
+    
+    vector<int> pick() {
+        int targ = rand()%tot;
+        int lo=0;
+        int hi=rects.size()-1;
+        while(lo<hi){
+            int mid=(lo+hi)/2;
+            if(targ>=psum[mid]) lo=mid+1;
+            else hi=mid;
+        }
+        
+        vector<int> x = rects[lo];
+        int width= x[2]-x[0]+1;
+        int height = x[3]-x[1]+1;
+        int base= psum[lo]-width*height;
+        vector<int> ans;
+        ans.push_back(x[0]+(targ-base)%width);
+        ans.push_back(x[1]+(targ-base)/width);
+        return ans;     
+    }
+};
+```
