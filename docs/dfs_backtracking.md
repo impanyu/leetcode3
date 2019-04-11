@@ -332,3 +332,29 @@ public:
     }    
 };
 ```
+
+## [386. Lexicographical Numbers](https://leetcode.com/problems/lexicographical-numbers/)
+1. dfs on a tree, where each node represents the starting digits
+
+
+```c++
+class Solution {
+public:
+    vector<int> ans;
+    int limit;
+    vector<int> lexicalOrder(int n) {
+        limit=n;
+        for(int i=1;i<10;i++)
+            lexical_start_with(i);
+        return ans;
+    }
+    
+    void lexical_start_with(int m){
+        if(m>limit) return;
+        ans.push_back(m);
+        for(int i=0;i<10;i++)
+           lexical_start_with(m*10+i);
+    }
+};
+```
+
