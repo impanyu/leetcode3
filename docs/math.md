@@ -88,3 +88,62 @@ public:
     }
 };
 ```
+
+## [963. Minmum Area Rectangle II](https://leetcode.com/problems/minimum-area-rectangle-ii/)
+1. use a long int to represent the point
+2. iterate through all 3 points, try to construct the fourth point, check if it's a rectangle.
+
+
+```c++
+class Solution {
+public:
+    double minAreaFreeRect(vector<vector<int>>& points) {
+        int N = points.size();
+
+        long A[N];
+        unordered_set<long> point_set;
+        for (int i = 0; i < N; ++i) {
+            A[i] =points[i][0]*40001+points[i][1];
+            point_set.insert(A[i]);
+        }
+
+        double ans = 1e20;
+        for (int i = 0; i < N; ++i) {
+            long p1 = A[i];
+            long p1_x = p1/40001;
+            long p1_y = p1%40001;
+            for (int j = 0; j < N; ++j) 
+                if (j != i) {
+                    long p2 = A[j];
+                    long p2_x = p2/40001;
+                    long p2_y = p2%40001;
+                    for (int k = j+1; k < N; ++k) 
+                        if (k != i) {
+                            long p3 = A[k];
+                            long p3_x = p3/40001;
+                            long p3_y = p3%40001;
+                            long p4_x= p2_x+p3_x-p1_x;
+                            long p4_y=p2_y+p3_y-p1_y;
+                            long p4=p4_x*40001+p4_y;
+
+                            if (point_set.count(p4)) {
+                                long dot = ((p2_x - p1_x) * (p3_x - p1_x) +
+                                           (p2_y - p1_y) * (p3_y - p1_y));
+                                if (dot == 0) {
+                                    double area = distance(p1_x,p1_y,p2_x,p2_y)*distance(p1_x,p1_y,p3_x,p3_y);
+                                    if (area < ans)
+                                        ans = area;
+                                }
+                            }
+                    }
+            }
+        }
+
+        return ans < 1e20 ? ans : 0;
+    }
+    
+    double distance(double p1_x,double p1_y, double p2_x, double p2_y){
+        return sqrt((p1_x-p2_x)*(p1_x-p2_x)+(p1_y-p2_y)*(p1_y-p2_y));
+    }
+};
+```
