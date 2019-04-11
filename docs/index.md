@@ -35,7 +35,7 @@
 22. tolower() and toupper()
 23. isalpha() and isdigit()
 24. unordered_map<int,unordered_map<int,int>> can be used as a sparse 2d matrix
-25.
+25. for traverse on tree, array, graph, grid, we can 1, keep all the node state; 2, only keep the states on current track; 3, keep only one state, and accumulate it as we traverse. 
 
 
 ## Categorized Problems

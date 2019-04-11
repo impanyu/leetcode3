@@ -319,3 +319,49 @@ public:
  }
 };
 ```
+
+
+
+## [688.Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/)
+1. each state is represented by an array
+2. state transfer function is calculate per cell in the state array
+
+
+```c++
+class Solution {
+public:
+    double knightProbability(int N, int K, int r, int c) {
+        vector<vector<double>> dp(N,vector<double>(N));
+
+        int dr[]={2,2,1,1,-1,-1,-2,-2};
+        int dc[]={1,-1,2,-2,2,-2,1,-1};
+        dp[r][c]=1;
+        for(;K>0;K--){
+            vector<vector<double>> dp2(N,vector<double>(N));
+            for(int rr=0; rr<N;rr++){
+                for(int cc=0; cc<N;cc++){
+                    for(int k=0;k<8;k++){
+                        int nr=rr+dr[k];
+                        int nc=cc+dc[k];
+                        if(0<=nr && nr<N && 0<=nc && nc<N){
+                            dp2[nr][nc]+=dp[rr][cc]/8;
+                            //cout<<dp2[nr][nc]<<"\n";
+                        }
+                        
+                    }
+                }
+            }
+             for(int rr=0; rr<N;rr++)
+                for(int cc=0; cc<N;cc++)
+                    dp[rr][cc]=dp2[rr][cc];
+            
+        }
+        double ans=0;
+        for(int rr=0; rr<N;rr++)
+                for(int cc=0; cc<N;cc++)
+                    ans+=dp[rr][cc];
+        return ans;
+        
+    }
+};
+```
