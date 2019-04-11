@@ -295,3 +295,40 @@ public:
     } 
 };
 ```
+
+## [465. Optimal Account Balancing](https://leetcode.com/problems/optimal-account-balancing/)
+1. dfs on the debt state vector.
+2. for each node, clean the debt of cur position, and traverse all the choices of children. Accumulate the min transfer
+
+```c++
+class Solution {
+public:
+    int minTransfers(vector<vector<int>>& transactions) {
+        vector<int> debt;
+        unordered_map<int,int> debt_map;
+        for(auto trans : transactions){
+            debt_map[trans[0]]+=trans[2];
+            debt_map[trans[1]]-=trans[2];
+        }
+        for(auto p : debt_map){
+            debt.push_back(p.second);
+        }
+        
+        return get_min_trans(0,debt);
+    }
+    int get_min_trans(int cur, vector<int> debt){
+        while(cur < debt.size() && debt[cur]==0)
+            cur++;
+        if(cur==debt.size()) return 0;
+        int min_trans=INT_MAX;
+        for(int i=cur+1;i<debt.size();i++){
+            if(debt[i]*debt[cur]<0){
+                debt[i]+=debt[cur];
+                min_trans=min(min_trans,get_min_trans(cur+1,debt)+1);
+                debt[i]-=debt[cur];
+            }  
+        }
+        return min_trans;
+    }    
+};
+```
