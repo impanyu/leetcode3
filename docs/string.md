@@ -106,3 +106,34 @@ public:
     }
 };
 ```
+
+
+## [482. License Key Formatting](https://leetcode.com/problems/license-key-formatting/)
+1. first count the number of valid char
+2. output char by char, only output '-' when count%K==0 and count>0
+3. the use of toupper()
+
+```c++
+class Solution {
+public:
+    string licenseKeyFormatting(string S, int K) {
+        string ans;
+        int count=0;
+        for(char c: S)
+            if(c!='-')
+                count++;
+        
+        for(char c: S){
+            if(c=='-') continue;
+            char C=toupper(c);
+            count--;
+            ans+=C;
+            if(count>0 && count%K==0)
+                ans+='-';
+        }
+        return ans;
+    }
+};
+```
+
+
