@@ -367,7 +367,7 @@ public:
 ```
 
 
-[518. Coin Change 2](https://leetcode.com/problems/coin-change-2/)
+## [518. Coin Change 2](https://leetcode.com/problems/coin-change-2/)
 1. pay attention to the loop order, we can not transfer mainly on amount, because we need to keep the order of the coins
 
 ```c++
@@ -388,7 +388,7 @@ public:
 };
 ```
 
-[322. Coin Change](https://leetcode.com/problems/coin-change/)
+## [322. Coin Change](https://leetcode.com/problems/coin-change/)
 1. here we only care about the minimal coins we need, so the accumulating order didn't matter.
 
 
@@ -408,5 +408,38 @@ public:
         }
         return dp[amount]>amount? -1:dp[amount];
     }
+};
+```
+
+## [361. Bomb Enemy](https://leetcode.com/problems/bomb-enemy/)
+1. only use an array colhits to represent column hits
+2. use int rowhits to represent current row hits.
+
+
+```c++
+class Solution {
+public:
+    int maxKilledEnemies(vector<vector<char>>& grid) {
+        if(grid.size()==0 || grid[0].size()==0) return 0;
+        int m = grid.size(), n = m ? grid[0].size() : 0;
+        int result = 0, rowhits, colhits[n];
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                if (!j || grid[i][j-1] == 'W') {
+                    rowhits = 0;
+                    for (int k=j; k<n && grid[i][k] != 'W'; k++)
+                        rowhits += grid[i][k] == 'E';
+                }
+                if (!i || grid[i-1][j] == 'W') {
+                    colhits[j] = 0;
+                    for (int k=i; k<m && grid[k][j] != 'W'; k++)
+                        colhits[j] += grid[k][j] == 'E';
+                }
+                if (grid[i][j] == '0')
+                    result = max(result, rowhits + colhits[j]);
+            }
+        }
+        return result;
+ }
 };
 ```
