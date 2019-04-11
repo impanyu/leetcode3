@@ -60,3 +60,31 @@ public:
     }
 };
 ```
+
+
+## [67.Add Binary](https://leetcode.com/problems/add-binary/)
+1. add from right to left, update carry accordingly
+
+```c++
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string ans="";
+        int i=a.size()-1;
+        int j=b.size()-1;
+        int carry=0;
+        
+        while(i>=0||j>=0){
+            
+            if(i>=0) carry+=a[i]-'0';
+            if(j>=0) carry+=b[j]-'0';
+            ans=(char)(carry%2+'0')+ans;
+            carry/=2;
+            i--;
+            j--;
+        }    
+        if(carry>0) ans='1'+ans;
+        return ans;
+    }
+};
+```
