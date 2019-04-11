@@ -31,3 +31,28 @@ public:
     }
 };
 ```
+
+
+## [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+1. keep the current unsolved day index, and try our best to solve it when encountering a larger temperature
+2. an similar and symmetric solution is to traver from right to left and keep in the stack the possible larger temperatures(see standard solution)
+
+```c++
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& T) {
+        stack<int> st;
+        vector<int> ans(T.size());
+        for(int i=0;i<T.size();i++){ 
+            while(!st.empty() && T[st.top()]<T[i]){
+                ans[st.top()]=(i-st.top());
+                st.pop();
+            }
+            st.push(i);
+        }
+        return ans;
+    }
+};
+
+
+```
