@@ -443,3 +443,50 @@ public:
  }
 };
 ```
+
+
+
+## [975. Odd Even Jump](https://leetcode.com/problems/odd-even-jump/)
+0. a bottom up dp problem
+1. use tree map to store the values up until now. we can say map vals is for keeping the transfer structure
+2. use two arrays(odd, even) to keep the state for each position
+
+
+
+```c++
+class Solution {
+public:
+    int oddEvenJumps(vector<int>& A) {
+        int N = A.size();
+        if (N <= 1) return N;
+        bool odd[N], even[N];
+        map<int,int> val_map; // map value to index
+        fill(odd,odd+N,false);
+        fill(even,even+N,false);
+        odd[N-1]=even[N-1]=true;
+        val_map[A[N-1]]=N-1;
+        
+        for(int i=N-2;i>=0;i--){
+            if(val_map.count(A[i])){
+                odd[i]=even[val_map[A[i]]];
+                even[i]=odd[val_map[A[i]]];
+            }
+            else{
+                map<int,int>::iterator higher=val_map.lower_bound(A[i]);
+                map<int,int>::iterator lower=higher==val_map.begin()?val_map.end():--val_map.lower_bound(A[i]);
+       
+                if(higher!=val_map.end())//have larger val
+                  odd[i]=even[val_map[higher->first]]; 
+                if(lower!=val_map.end())
+                  even[i]=odd[val_map[lower->first]];
+            }
+            val_map[A[i]]=i;//update the value map
+        }
+        int ans=0;
+        for(bool k: odd)
+            ans+=k;
+        return ans;
+        
+    }
+};
+```
