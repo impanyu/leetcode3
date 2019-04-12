@@ -54,5 +54,5 @@
 13. ### [Trie](trie.md)
 14. ### [BFS](bfs.md)
 15. ### [Simulation](simulation.md)
-
+16. ### [Heap](priority_queue.md)
 
