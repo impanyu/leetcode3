@@ -287,3 +287,66 @@ public:
     }
 };
 ```
+
+[215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+1. mimic quick sort, and only deal with one side, rather than both sides.
+2. time complexity O(n)
+3. another method is to use a heap.
+
+```c++
+class Solution {
+public:
+    vector<int> nums;
+    int findKthLargest(vector<int>& nums, int k) {
+        this->nums = nums;
+       int size = nums.size();
+       return quickselect(0, size - 1, size - k);
+    }
+    
+    
+    int partition(int left, int right, int pivot_index) {
+        int pivot = nums[pivot_index];
+        // 1. move pivot to end
+        swap(nums[pivot_index], nums[right]);
+        int store_index = left;
+
+        // 2. move all smaller elements to the left
+        for (int i = left; i <= right; i++) {
+          if (this->nums[i] < pivot) {
+            swap(nums[store_index], nums[i]);
+            store_index++;
+          }
+    }
+
+        // 3. move pivot to its final place
+        swap(nums[store_index], nums[right]);
+
+        return store_index;
+  }
+    
+    int quickselect(int left, int right, int k_smallest) {
+    /*
+    Returns the k-th smallest element of list within left..right.
+    */
+
+    if (left == right) // If the list contains only one element,
+      return this->nums[left];  // return that element
+
+    // select a random pivot_index
+ 
+    int pivot_index = left + rand()%(right - left); 
+    
+    pivot_index = partition(left, right, pivot_index);
+
+    // the pivot is on (N - k)th smallest position
+    if (k_smallest == pivot_index)
+      return this->nums[k_smallest];
+    // go left side
+    else if (k_smallest < pivot_index)
+      return quickselect(left, pivot_index - 1, k_smallest);
+    // go right side
+    return quickselect(pivot_index + 1, right, k_smallest);
+  }
+    
+};
+```
