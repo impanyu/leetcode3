@@ -22,4 +22,4 @@ include:
   - bfs.md
   - simulation.md
   - priority_queue.md
-
+  - union_find.md
