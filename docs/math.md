@@ -147,3 +147,74 @@ public:
     }
 };
 ```
+
+
+## [850. Rectangle Area II](https://leetcode.com/problems/rectangle-area-ii/)
+1. line sweep method
+2. two types of events: open and close3
+3. for each event, accumulate the previous area and update current active segments and y accordingly
+
+
+```c++
+class event{
+public:
+    bool open;
+    int y;
+    int x0;
+    int x1;
+    event(bool open, int y, int x0, int x1){
+        this->open=open;
+        this->y=y;
+        this->x0=x0;
+        this->x1=x1;
+    }
+    bool operator<(event b){
+        return this->y<b.y;
+    }   
+};
+
+
+class Solution {
+public:
+    int rectangleArea(vector<vector<int>>& rectangles) {
+        vector<event> events;
+        for(auto rect : rectangles){
+            events.push_back(event(true,rect[1],rect[0],rect[2]));
+            events.push_back(event(false,rect[3],rect[0],rect[2]));            
+        }
+        sort(events.begin(),events.end());
+        long ans=0;
+        
+        int y_min=events[0].y, y_max;
+        vector<pair<int,int>> active;
+        for(auto event: events){
+            y_max=event.y;
+            int x_length=0;
+            int cur=-1;
+            for(auto p: active){
+                 cur=max(cur,p.first);
+                 x_length+=max(p.second-cur,0);
+                 cur=max(cur,p.second);
+            }
+            ans+=((long)x_length)*(y_max-y_min);
+            
+            if(event.open){
+               active.push_back(make_pair(event.x0,event.x1));
+               sort(active.begin(),active.end());
+            }
+            else{
+               for(int i=0;i<active.size();i++){
+                   if(active[i]==make_pair(event.x0,event.x1)){
+                       active.erase(active.begin()+i);
+                       break;
+                   }
+               }   
+            }
+            y_min=event.y;
+            
+        }
+        ans%=1000000007;
+        return ans; 
+    }
+};
+```
