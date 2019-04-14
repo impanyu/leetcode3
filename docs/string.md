@@ -184,3 +184,44 @@ public:
 };
 ```
 
+## [640. Solve the Equation](https://leetcode.com/problems/solve-the-equation/)
+1. parse char by char
+2. differentiate between 0 coefficient and no coefficient
+
+```c++
+class Solution {
+public:
+    string solveEquation(string equation) {
+        int coef_sum=0, con_sum=0;
+        int num=-1;
+        int side=1;
+        int sign=1;
+        for(char c : equation){        
+            if(isdigit(c))
+                num=(num==-1?c-'0':num*10+c-'0');
+            else if(c=='x'){
+                coef_sum+=side*sign*(num==-1?1:num);
+                num=-1;
+            }
+            else {
+                if(num>=0){
+                  con_sum+=side*sign*num;
+                  num=-1;
+                }
+                if(c=='=') {
+                    sign=1;
+                    side=-1;
+                }
+                else if(c=='+' ) sign=1;
+                else if(c=='-') sign=-1;      
+            }
+            
+        }
+       if(num>=0) con_sum+=side*sign*num;
+       if(coef_sum==0 &&  con_sum!=0) return "No solution";
+       if(coef_sum==0) return "Infinite solutions";
+       return "x="+to_string(-con_sum/coef_sum);
+       
+    }
+};
+```
