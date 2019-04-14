@@ -59,7 +59,8 @@ public:
 
 ## [489. Robot Room Cleaner](https://leetcode.com/problems/robot-room-cleaner/)
 1. recursive DFS to traverse each pos
-2. Use a map to store all visited pos. 
+2. Use a map to store all visited pos.
+3. x,y and dir must sync with the actual states 
 
 ```c++
 /**
@@ -176,8 +177,9 @@ bool dfs(vector<vector<char>>& board, int i, int j, string& word) {
 ```
 
 ## [753. Cracking the Safe](https://leetcode.com/problems/cracking-the-safe/)
-1.dfs traversal on a graph, for each node, append the corresponding char.
-
+1. dfs traversal on a graph, for each node, append the corresponding char.
+2. append the char after traverse a circle back (post order)
+3. record visited edge, not node.
 
 ```c++
 class Solution {

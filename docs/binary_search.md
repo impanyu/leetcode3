@@ -20,3 +20,59 @@ public:
     }
 };
 ```
+
+[69. Sqrt(x)](https://leetcode.com/problems/sqrtx/)
+1. a variation of binary search for upperbound case
+2. here we return the index left to upperbound instead of upperbound of itself
+
+```c++
+class Solution {
+public:
+    int mySqrt(int x) {
+        long a=0;
+        long b=(long)x+1;
+        long mid=0;
+        while(a<b){
+            mid=(a+b)/2;
+            if(mid*mid>x) b=mid;
+            else a=mid+1;       
+        }
+        return a-1;
+    }
+};
+
+```
+
+
+
+## [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)
+1. consider the number of smaller elements as a function of the value of matrix
+
+
+```c++
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int l=matrix[0][0];
+        int r=matrix[matrix.size()-1][matrix[0].size()-1];
+        while(l<r){
+            int mid=(l+r)/2;
+            int total=0;
+            for(auto& row: matrix) total+=find_upperbound(row,mid);
+            if(total>=k) r=mid;
+            else l=mid+1;
+        }
+        return l;
+    }
+    
+    int find_upperbound(vector<int>& row, int m){
+        int i=0,j=row.size();
+        while(i<j){
+            int mid=(i+j)/2;
+            if(row[mid]>m) j=mid;
+            else i=mid+1;
+        }
+        return i;
+    }
+};
+```

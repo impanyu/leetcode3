@@ -48,3 +48,93 @@ public:
     }
 };
 ```
+
+
+## [947. Most Stones Removed with Same Row or Column]()
+1. Two methods, a. union find b. dfs
+
+```c++
+class DSU{
+public:
+   vector<int> par;
+   DSU(int N){
+       par=vector<int>(N);
+       for(int i=0; i<N; i++) par[i]=i;
+   }
+   int find(int x){
+       while(par[x]!=x) x=par[x];
+       return x;
+   }
+   void unify(int x, int y){
+       par[find(x)]=find(y);
+   }   
+};
+
+class Solution {
+//1. count the number of connected components, and the answer will be stones.size()-number of connected components
+//2. can be completed by dfs or union find
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        int N = stones.size();
+        DSU dsu(20000);      
+        for(auto stone: stones){
+            dsu.unify(stone[0],stone[1]+10000);
+        }
+        int ans=0;
+        unordered_set<int> st;
+        for(auto stone : stones){
+            int s=stone[0];
+            //ans+=(dsu.find(s)==s);
+            st.insert(dsu.find(s));
+        }
+        return N-st.size(); 
+    }
+};
+
+
+//method 2:dfs
+#define FILL(x,v) memset(x,v,sizeof(x))
+class Solution {
+//1. count the number of connected components, and the answer will be stones.size()-number of connected components
+//2. pay attention to the representation of graph, which is a pseudo list
+public:
+    int removeStones(vector<vector<int>>& stones) {
+         int N = stones.size();
+       // graph[i][0] = the length of the 'list' graph[i][1:]
+        int graph[N][N];
+        for (int i = 0; i < N; ++i) graph[i][0]=0;
+        for (int i = 0; i < N; ++i){
+            for (int j = i+1; j < N; ++j){
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    graph[i][++graph[i][0]] = j;
+                    graph[j][++graph[j][0]] = i;
+                }
+            }
+        }
+
+        int ans = 0;
+        bool seen[N];
+        FILL(seen,0);
+        for (int i = 0; i < N; ++i) if (!seen[i]) {
+            stack<int> stack;
+            stack.push(i);
+            seen[i] = true;
+            while (!stack.empty()) {
+                int node = stack.top();
+                stack.pop();
+                
+                for (int k = 1; k <= graph[node][0]; ++k) {
+                    int nei = graph[node][k];
+                    if (!seen[nei]) {
+                        ans++;
+                        stack.push(nei);
+                        seen[nei] = true;
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+```

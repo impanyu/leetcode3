@@ -154,4 +154,33 @@ public:
 };
 ```
 
+## [777. Swap Adjacent in LR String](https://leetcode.com/problems/swap-adjacent-in-lr-string/)
+1. double propelled two pointers
+2. for each loop:
+    a. skip all X
+    b. if start[i]!= start[j] or the L of start is to the left of the corresponding L in end, or the R of start is to the right of its counterpart in end. return false
+3. return true when pass all the checks
+
+```c++
+class Solution {
+public:
+    bool canTransform(string start, string end) {
+        int N = start.size();
+        int i = 0, j = 0;
+        while (i < N && j < N) {
+             while(i<N && start[i]=='X') i++;
+             while(j<N && end[j]=='X') j++; 
+             if((i<N) ^ (j<N) ) return false; 
+             if(i<N && j<N){
+                 if(start[i]!=end[j]) return false;
+                 if(start[i]=='L' && i<j) return false;
+                 if(start[i]=='R' && i>j) return false;           
+             }
+            i++;
+            j++;
+        }
+        return true;
+    }
+};
+```
 

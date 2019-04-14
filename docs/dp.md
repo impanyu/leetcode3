@@ -1,5 +1,6 @@
 ## [1021.Best Sightseeing Pair](https://leetcode.com/contest/weekly-contest-129/problems/best-sightseeing-pair/)
 1. update max of A[i]+i and max of ans each iteration
+
 ```c++
 class Solution {
 public:
@@ -23,6 +24,7 @@ public:
 1. 2D dp, first dimension is the ending position in nums and the second position is the number of splitted parts 
 2. Another way to view this problem: splitting feasibility is a monotonous function of w.r.t the minimum largest sum.
 Thus we can solve this problem using binary search.
+
 ```c++
 #define FILL(a,v) memset(a,v,sizeof(a))
 class Solution {
@@ -45,6 +47,35 @@ public:
          
         return dp[nums.size()][m];
          
+    }
+};
+
+
+//0-indexed method
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int m) {
+        long dp[nums.size()][m+1];// 1-indexed
+        long sub[nums.size()];//1-indexed
+        sub[0]=nums[0];
+        for(int i=0;i<nums.size();i++)
+          for(int j=0;j<=m;j++)
+              dp[i][j]=INT_MAX;
+        
+        for(int i=1; i<nums.size();i++){
+             sub[i]=sub[i-1]+nums[i];
+        }
+        
+        for(int i=0; i<nums.size();i++)
+            for(int j=1; j<=m;j++){
+                if(j==1){
+                    dp[i][j]=sub[i];
+                    continue;
+                }
+                for(int k=0;k<i;k++)
+                    dp[i][j] = min(dp[i][j],max(dp[k][j-1],sub[i]-sub[k]));
+            }       
+        return dp[nums.size()-1][m];      
     }
 };
 ```
@@ -80,6 +111,7 @@ public:
 ## [90. Number of Music Playlists](https://leetcode.com/problems/number-of-music-playlists/)
 1. Use an array to store the number of music playlists for i unique songs with j songs in list.
 2. Two previous conditions in transfer function. 
+
 ```c++
 class Solution {
 public:
@@ -105,6 +137,7 @@ public:
 1. Relaxed 21 game, instead of hit 21, player only need to hit a value in [K,N]
 2. dp[k]= 1/W*(dp[k+1]+dp[k+2]+...+dp[k+W])
 3. always keep a window size of W, and shift the window from right to left
+
 ```c++
 public:
     double new21Game(int N, int K, int W) {
@@ -490,3 +523,5 @@ public:
     }
 };
 ```
+
+
