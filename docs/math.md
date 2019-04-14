@@ -24,8 +24,6 @@ public:
 1. regular multiplication, accumulate the position based on the position of num1 and num2
 2. use vector to represent the result, never use int/long directly
 
-
-
 ```c++
 class Solution {
 public:

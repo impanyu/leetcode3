@@ -225,3 +225,44 @@ public:
     }
 };
 ```
+
+## [833. Find and Replace in String](https://leetcode.com/problems/find-and-replace-in-string/)
+1. use an array match to store the matching point
+2. time complexity o(N*indexes.size())
+3. copy from one index system to another, also there are a third index system, which is that of sources and targes.
+
+
+```c++
+class Solution {
+public:
+    string findReplaceString(string S, vector<int>& indexes, vector<string>& sources, vector<string>& targets) {
+        int N=S.size();
+        int match[N];
+        fill(match,match+N,-1);
+        int i=0;
+        for(;i<indexes.size();i++){
+            int k=indexes[i];
+            if(S.substr(k,sources[i].size())==sources[i])
+                match[k]=i;
+        }
+      
+        string ans;
+        i=0;
+        while(i<N){
+            if(match[i]>=0){
+                ans+=targets[match[i]];
+                i+=sources[match[i]].size();
+            }
+            else{
+                ans+=S[i];
+                i++;
+            }
+        }
+        return ans;
+        
+    }
+};
+
+```
+
+
