@@ -183,3 +183,44 @@ public:
     }
 };
 ```
+
+## [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+1. define a Compare functor for Interval
+2. iterate through the intervals and update the ans accordingly
+3. reference to 253. meeting rooms II, which also traverse through all sorted intervals and accumulate maximal rooms required
+
+```c++
+class compare
+{
+     public:
+       bool operator() (Interval a, Interval b)
+       {
+           return a.start<b.start;
+        }
+};
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval>& intervals) {       
+        sort(intervals.begin(),intervals.end(),compare());
+        vector<Interval> ans;
+        for(auto interval: intervals){
+            if(ans.empty() || ans.back().end<interval.start)
+                ans.push_back(interval);
+            else
+                ans.back().end=max(interval.end,ans.back().end);
+        }
+        return ans;
+        
+    }
+};
+```
