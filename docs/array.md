@@ -187,7 +187,8 @@ public:
 ## [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 1. define a Compare functor for Interval
 2. iterate through the intervals and update the ans accordingly
-3. reference to 253. meeting rooms II, which also traverse through all sorted intervals and accumulate maximal rooms required
+3. reference to 253. meeting rooms II, which also traverse through all sorted intervals and accumulate maximal rooms required.
+4. 56 pay attention to last end, 253 pay attention to first end. 
 
 ```c++
 class compare
@@ -221,6 +222,39 @@ public:
         }
         return ans;
         
+    }
+};
+```
+
+## [849. Maximize Distance to Closest Person](https://leetcode.com/problems/maximize-distance-to-closest-person/)
+1. define left and right as the distance from the closet person sitting to the left and right
+2. three pass of the input array
+3. similar to trapping rain water
+
+
+
+```c++
+class Solution {
+public:
+    int maxDistToClosest(vector<int>& seats) {
+        int left[seats.size()];
+        int right[seats.size()];
+        fill(left,left+seats.size(),seats.size());
+        fill(right,right+seats.size(),seats.size());
+        int ans=0;
+        cout<<seats.size()<<"\n";
+        for(int i=0;i<seats.size();i++){
+            if(seats[i]==1) left[i]=0;
+            else if(i>0) left[i]=left[i-1]+1;
+        }
+        for(int i=seats.size()-1;i>=0;i--){
+            if(seats[i]==1) right[i]=0;
+            else if(i<seats.size()-1) right[i]=right[i+1]+1;
+        }
+        for(int i=0;i<seats.size();i++){
+           if(seats[i]==0) ans=max(ans,min(left[i],right[i]));          
+        }
+        return ans;
     }
 };
 ```
