@@ -76,3 +76,63 @@ public:
     }
 };
 ```
+
+
+## [911. Online Election]()
+1. iterate through all the time steps and update the leader and time stamp accordingly
+2. do a binary search on the result vector from 1.
+
+
+
+```c++
+class Vote {
+public:
+    int person, time;
+    Vote(int p, int t) {
+        person = p;
+        time = t;
+    }
+};
+class TopVotedCandidate {
+public:
+    vector<Vote> A;//leader/time for all time steps when there's a leader change
+    TopVotedCandidate(vector<int> persons, vector<int> times) {
+        unordered_map<int,int> vote_count;
+        int current_leader=-1;
+        int current_votes=0;
+        for(int i=0;i<persons.size();i++){
+            vote_count[persons[i]]++;
+            if(vote_count[persons[i]]>=current_votes ){
+                if(persons[i]!=current_leader){
+                    current_leader=persons[i];
+                    A.push_back(Vote(current_leader,times[i]));  
+                }
+                current_votes=vote_count[persons[i]];
+            }
+            
+        }
+        
+        
+    }
+    
+     int q(int t) {// exactly the same as binary search, except return lo-1 once outside the loop
+        int lo = 0, hi = A.size();
+        while (lo < hi) {
+            int mi = (hi + lo) / 2;
+            //if(A[mi].time == t) return A[mi].person;
+            if (A[mi].time <= t)
+                lo = mi + 1;
+            else
+                hi = mi;
+        }
+
+        return A[lo-1].person;
+    }
+};
+
+/**
+ * Your TopVotedCandidate object will be instantiated and called as such:
+ * TopVotedCandidate obj = new TopVotedCandidate(persons, times);
+ * int param_1 = obj.q(t);
+ */
+```

@@ -236,7 +236,7 @@ public:
 ## [527. Word Abbreviation](https://leetcode.com/problems/word-abbreviation/)
 1. first abbrev each word
 2. find the collision and solve the collision with prefix in a trie
-
+3. each word add and search from index 1, can also start from 0, but pay attention to skip 0, otherwise for group with only 1 word, the output will not include the first letter
 
 ```c++
 class TrieNode{
@@ -299,7 +299,7 @@ public:
         return ans;
     }
     
-    string abbrev(string word, int i){
+    string abbrev(string word, int i){//i is the last letter to be included in the prefix(or to say,the first letter which can differentiate within the group)
         int N=word.size();
         if(N-i<=3) return word;
         return word.substr(0,i+1)+to_string(N-i-2)+string(1,word[N-1]);

@@ -350,3 +350,47 @@ public:
     
 };
 ```
+
+## [855.Exam Room](https://leetcode.com/problems/exam-room/)
+1. for each seat(), traverset all the seated students, find the largest intervals.
+2. deal with two ends with care.
+3. use a tree map to store the sorted index of seated students.
+
+```c++
+class ExamRoom {
+public:
+    set<int> seated;
+    int N;
+    ExamRoom(int N) {
+       this->N=N; 
+    }
+    
+    int seat() {
+       int ans=0;
+       int max_dist=0;
+       int prev=0;
+       if(seated.size()>0){
+           for(set<int>::iterator itr=seated.begin();itr!=seated.end();itr++){
+               if(itr==seated.begin())
+                   max_dist= *itr;
+               else{
+                   if(max_dist<(*itr-prev)/2){
+                       max_dist=(*itr-prev)/2;
+                       ans=prev+(*itr-prev)/2;
+                   }
+               }
+               prev=*itr;
+           }
+          if(N-1-(*seated.rbegin())>max_dist)
+              ans=N-1;
+           
+       }
+       seated.insert(ans);
+       return ans;
+    }
+    
+    void leave(int p) {
+        seated.erase(p);
+    }
+};
+```
