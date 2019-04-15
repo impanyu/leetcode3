@@ -258,3 +258,43 @@ public:
     }
 };
 ```
+
+
+## [900. RLE Iterator](https://leetcode.com/problems/rle-iterator/)
+1. there are two states (i,q), which need to keep across session
+2. there are one extra session n, which need to keep with one session
+
+
+```c++
+class RLEIterator {
+public:
+    vector<int> A;
+    int i;//A[i+1] is the current value
+    int q;//the exhausted count of current value
+    RLEIterator(vector<int> A) {
+        this->A=A;
+        i=q=0;
+    }
+    
+    int next(int n) {
+        while(i<A.size()){
+            if(n>A[i]-q){ //n exceeds the left count of current value 
+               n-=A[i]-q;
+               i+=2;
+               q=0;
+            }
+            else{
+                q+=n;
+                return A[i+1];
+            }
+        }
+        return -1;
+    }
+};
+
+/**
+ * Your RLEIterator object will be instantiated and called as such:
+ * RLEIterator obj = new RLEIterator(A);
+ * int param_1 = obj.next(n);
+ */
+```
