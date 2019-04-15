@@ -59,3 +59,4 @@
 15. ### [Simulation](simulation.md)
 16. ### [Heap](priority_queue.md)
 17. ### [Union Find](union_find.md)
+18. ### [Enumeration](enumeration.md)
