@@ -37,6 +37,8 @@
 24. unordered_map<int,unordered_map<int,int>> can be used as a sparse 2d matrix
 25. for traverse on tree, array, graph, grid, we can 1, keep all the node state; 2, only keep the states on current track; 3, keep only one state, and accumulate it as we traverse.
 26. for some problem where we need sort/priority_queue some compound nodes, we could a. define a new class or b. use a native priority_queue together with compare function utilizing a hashmap 
+27. every problem has one or two main problem structrue we search on, we need to think about which data structure is the most efficient for representing this problem structure 
+
 
 
 ## Categorized Problems

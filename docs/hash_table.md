@@ -114,3 +114,29 @@ public:
     }
 };
 ```
+
+
+## [299. Bulls and Cows](https://leetcode.com/problems/bulls-and-cows/)
+
+```c++
+class Solution {
+//have to be two pass
+public:
+    string getHint(string secret, string guess) {
+        unordered_map<int,int> char_count;
+        int cows=0,bulls=0;
+        for(int i=0;i < secret.size();i++){
+            if(secret[i]==guess[i]) cows++;
+            else char_count[secret[i]]++;
+        }
+        for(int i=0;i < secret.size();i++){
+            if(secret[i]!=guess[i] && char_count[guess[i]]){
+                   char_count[guess[i]]--;
+                    bulls++;
+                }
+        }
+        return to_string(cows)+"A"+to_string(bulls)+"B";
+        
+    }
+};
+```

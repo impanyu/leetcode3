@@ -524,4 +524,49 @@ public:
 };
 ```
 
+## [248.Strobogrammatic Number III](https://leetcode.com/problems/strobogrammatic-number-iii/)
+1. build on top of strobogrammatic number II, and for each number length, generate and count the satisfied number
 
+```c++
+class Solution {
+public:
+    int count=0;
+    int total;
+    long low;
+    long high;
+    
+    int strobogrammaticInRange(string low, string high) {
+        this->low= stol(low);
+        this->high=stol(high);
+        for(int i=low.size();i<=high.size();i++){
+             total=i;
+             count_strobo(i);       
+       }
+        return count;
+    }
+    
+    vector<string> count_strobo(int n){
+        vector<string> ans;
+        if(n==0) ans= {""};
+        else if(n==1) ans={"0","1","8"};
+        else{
+            vector<string> nums=count_strobo(n-2);
+            for(string num: nums){
+                ans.push_back("1"+num+"1");
+                ans.push_back("6"+num+"9");
+                ans.push_back("9"+num+"6");
+                ans.push_back("8"+num+"8");
+                if(n!=total) ans.push_back("0"+num+"0");        
+            } 
+        }
+        if(n==total){// in outer layer, count the satisfying number
+            for(string num : ans){
+                long current_num=stol(num);
+                if(current_num>=low &&  current_num<=high)
+                    count++;
+            }
+        }
+       return ans;
+    }
+};
+```
