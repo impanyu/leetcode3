@@ -167,3 +167,37 @@ public:
     }
 };
 ```
+
+## [205. Isomorphic Strings]()
+
+```c++
+//method 1:
+class Solution {
+//1.refuse is easier to consider than accept
+//2. consider both directions.
+public:
+  bool isIsomorphic(string s, string t) {
+    unordered_map<char,char> m1;
+    unordered_map<char,char> m2;
+    if(s.size()!=t.size()) return false;
+    for(int i=0; i<s.size();i++){
+         if(!m1.count(s[i])) m1[s[i]]=t[i];
+         if(!m2.count(t[i])) m2[t[i]]=s[i];
+         if(m1[s[i]]!=t[i] || m2[t[i]]!=s[i])
+             return false;
+     }
+     return true;   
+}
+};
+
+//method 2:
+//use map from char to pos, instead of directly mapping from char to char.
+class Solution {
+public:
+  bool isIsomorphic(string s, string t) {
+  int ms[128] = {}, mt[128] = {}, n = s.size(), i = 0;
+  for (; i < n && ms[s[i]] == mt[t[i]]; ++i) ms[s[i]] = mt[t[i]] = i + 1;
+  return i == n;
+}
+};
+```
