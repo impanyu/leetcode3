@@ -41,3 +41,40 @@ public:
     }
 };
 ```
+
+
+## [524. Longest Word in Dictionary through Deleting](https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/)
+
+```c++
+class compare{
+public:
+    bool operator()(string a, string b){
+        return a.size()==b.size()?a<b:a.size()>b.size();
+    }
+};
+class Solution {
+//0. find max length subsequence under ordering
+//1. The use of Compare for sorting
+//2. For each word in the dictionary, if it is a subsequence of s, then return it
+//3. Can be accomplished without sorting
+//4. The use of two pointers for subseq determination. This is the two pointers running on two different array.
+public:
+    bool subseq(string sub, string s){
+        int i=0;
+        int j=0;
+        while(i<sub.size() && j<s.size()){
+            if(sub[i]==s[j]) i++;
+            j++;
+        }
+        return i==sub.size();
+    }
+    string findLongestWord(string s, vector<string>& d) {
+        sort(begin(d),end(d),compare());
+        for(string word : d){
+            if(subseq(word,s))
+                return word;
+        }
+        return "";
+    }
+};
+```
