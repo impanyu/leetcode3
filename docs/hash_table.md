@@ -140,3 +140,30 @@ public:
     }
 };
 ```
+
+## [734. Sentence Similarity](https://leetcode.com/problems/sentence-similarity/)
+1. do not use a map! Because we need to represent a relation here rather than a mapping!!
+2. do not forget check words1[i]!=words2[i]
+
+
+
+```c++
+class Solution {
+public:
+    bool areSentencesSimilar(vector<string>& words1, vector<string>& words2, vector<pair<string, string>> pairs) {
+        if(words1.size()!=words2.size()) return false;
+        unordered_set<string> pair_set;
+        for(auto p: pairs){
+            string pair1=p.first+"#"+p.second;
+            string pair2=p.second+"#"+p.first;
+            pair_set.insert(pair1);
+            pair_set.insert(pair2);
+        }
+        for(int i=0;i<words1.size();i++){
+            if(words1[i]!=words2[i] && pair_set.count(words1[i]+"#"+words2[i])==0 )
+                return false;     
+        }
+        return true;
+    }
+};
+```
