@@ -56,3 +56,48 @@ public:
 
 
 ```
+
+
+
+## [394. Decode String](https://leetcode.com/problems/decode-string/)
+1. use a stack to store current replication and another stack to store previous string of the samee level.
+2. once encoutering a close bracket, we pop the previous string and concatenate it with current string(tmp) within the bracket for replications.pop() times
+
+
+
+```c++
+//2[ab3[bc]cd]ab--->top(2)2[top(1)3[tmp]cd]ab
+
+class Solution {
+public:
+    string decodeString(string s) {
+        if(!s.size()) return "";
+        stack<int> replications;
+        stack<string> strings;
+        int rep=0;
+        string tmp;
+        for(char c : s){
+            if(isdigit(c)) rep=rep*10+c-'0';
+            else if(c=='['){
+                strings.push(tmp);
+                replications.push(rep);
+                rep=0;
+                tmp="";           
+            }
+            else if(c==']'){
+                int count=replications.top();
+                replications.pop();
+                string top=strings.top();
+                strings.pop();
+                while(count--)
+                    top+=tmp;
+                tmp=top;
+            }
+            else
+                tmp+=c;
+        }
+          
+        return tmp;
+    }
+};
+```
