@@ -570,3 +570,31 @@ public:
     }
 };
 ```
+
+
+## [920. Number of Music Playlists](https://leetcode.com/problems/number-of-music-playlists/)
+1. transfer function and two cases
+
+```c++
+class Solution {
+public:
+    int numMusicPlaylists(int N, int L, int K) {
+       int mod=1e9+7;
+       long dp[N+1][L+1];//n songs play l times
+       for(int i=0;i<=N;i++)
+           for(int j=0;j<=N;j++)
+               dp[i][j]=0;
+       dp[0][0]=1;
+       for(int i=1;i<=N;i++){
+           for(int j=1;j<=N;j++){
+               dp[i][j]=dp[i-1][j-1]*(N-i+1);
+               dp[i][j]+=dp[i][j-1]*max(i-K,0); 
+               dp[i][j]%=mod;
+           }
+       }
+       return (int)dp[N][L];
+      
+    }
+};
+```
+

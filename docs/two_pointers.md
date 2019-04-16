@@ -238,3 +238,53 @@ public:
     }
 };
 ```
+
+
+
+## [475. Heaters](https://leetcode.com/problems/heaters/)
+
+
+```c++class Solution {
+//0. a naive method is O(n^2). just iterate through all houses and find its shortest distance and get the max of all shortest dist.
+//1. first sort the heaters and houses
+//2. for each house, find the nearest left and right heaters and store its distance to them
+//3. combine the left and right shortest distance and return the max value across all houses
+//4. still can be considered as two pointers problem, thus the two pass is O(n) rather than O(nlogn) or even O(n^2)
+public:
+/*
+Example:    h = house,  * = heater  M = INT_MAX
+
+        h   h   h   h   h   h   h   h   h    houses
+        1   2   3   4   5   6   7   8   9    index
+        *           *       *                heaters
+                
+        0   2   1   0   1   0   -   -   -    (distance to nearest RHS heater)
+        0   1   2   0   1   0   1   2   3    (distance to nearest LHS heater)
+
+        0   1   1   0   1   0   1   2   3    (res = minimum of above two)
+
+Result is maximum value in res, which is 3.
+*/
+    int findRadius(vector<int>& A, vector<int>& H) {
+       sort(begin(A),end(A));
+       sort(begin(H),end(H));
+       vector<int> res(A.size(),INT_MAX); 
+       for(int i=0,j=0; i<A.size() && j<H.size();){
+            if(A[i]<=H[j]){
+                res[i]=H[j]-A[i];
+                i++;
+            }
+            else j++;
+        }
+       for(int i=A.size()-1,j=H.size()-1;i>=0 && j>=0;){
+            if(A[i]>=H[j]){
+                res[i]=min(res[i],A[i]-H[j]);
+                i--;
+            }
+            else j--;
+        }
+        return *max_element(begin(res),end(res));
+    }
+};
+
+```
