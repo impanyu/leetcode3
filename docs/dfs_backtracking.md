@@ -260,11 +260,13 @@ public:
 
 
 ## [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
-1. use a cache to memorize the longest path of each cell
+1. use a cache to memorize the longest path of each cell. the reason for memoization works as a dp is the increasing path is a one direction path, so we don't need to concern the case when a node is visited in its subtree.
+2. DFS+ Memoization solution
+3. pay attention to the return value of dfs, if four neighbours are all decreasing, we need to return 1 instead of 0 
+
 
 ```c++
 class Solution {
-//DFS+ Memoization solution
 private:
     int dirs[5]={0,1,0,-1,0};
     int m,n;
@@ -504,6 +506,5 @@ public:
         
     }
 };
-
 
 ```
