@@ -298,3 +298,35 @@ public:
  * int param_1 = obj.next(n);
  */
 ```
+
+## [835. Image Overlap](https://leetcode.com/problems/image-overlap/)
+1. use a hashmap to register each possible delta and its corresponding overlaps
+2. loop on each pair of ones in A,B and accumulate the shift count accordingly
+3. similar to approach 2 of the original answer
+4. still O(n^4) in worst case
+
+
+```c++
+class Solution {
+public:
+    int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+         unordered_map<int,unordered_map<int,int>> shift_counts;
+         for(int i=0;i<A.size();i++){
+             for(int j=0;j<A[0].size();j++){
+                 if(A[i][j]!=1) continue;
+                 for(int i2=0;i2<B.size();i2++){
+                     for(int j2=0;j2<B.size();j2++){
+                         if(B[i2][j2]!=1) continue;
+                         shift_counts[i-i2][j-j2]++;
+                     }
+                 }
+             }
+         }
+        int ans=0;
+        for(auto p : shift_counts)
+            for(auto count: p.second)
+               ans=max(ans,count.second);
+        return ans;
+    }
+};
+```
