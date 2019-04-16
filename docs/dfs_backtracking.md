@@ -466,4 +466,44 @@ public:
 	}
 };
 ```
+## [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+1. dfs to find the number of connected components
+2. another method is union find
 
+
+```c++
+class Solution {
+public: 
+    vector<vector<char>> grid;
+    int height=0;
+    int width=0;
+    void dfs( int i, int j){
+         grid[i][j]='0';
+        if(i>=1 && grid[i-1][j]=='1') dfs(i-1,j);
+        if(i<=height-2 && grid[i+1][j]=='1') dfs(i+1,j);
+        if(j>=1 && grid[i][j-1]=='1') dfs(i,j-1);
+        if(j<=width-2 && grid[i][j+1]=='1') dfs(i,j+1);
+             
+    }    
+    int numIslands(vector<vector<char>>& grid) {
+         int ans=0;
+         this->grid=grid;
+         height=grid.size();
+         if(height==0) return ans;
+         width=grid[0].size();
+         for(int i=0;i<height;i++){
+             for(int j=0;j<width;j++){
+                 if(this->grid[i][j]=='1'){
+                     dfs(i,j);
+                     ans++;
+                 }
+                 
+             }
+         }
+        return ans;
+        
+    }
+};
+
+
+```
