@@ -30,7 +30,7 @@ class Solution {
 public:
     int mySqrt(int x) {
         long a=0;
-        long b=(long)x+1;
+        long b=(long)x+1;//here must be x+1 instead of x
         long mid=0;
         while(a<b){
             mid=(a+b)/2;
@@ -135,4 +135,37 @@ public:
  * TopVotedCandidate obj = new TopVotedCandidate(persons, times);
  * int param_1 = obj.q(t);
  */
+```
+
+
+
+## [774. Minimize Max Distance to Gas Station](https://leetcode.com/problems/minimize-max-distance-to-gas-station/)
+1. k is the decreasing function of d, use binary search
+
+
+```c++
+class Solution {
+public:
+    vector<int> stations;
+    double minmaxGasDist(vector<int>& stations, int K) {
+        this->stations=stations;
+        double l=0;
+        double r=1e8; 
+        while(l+1e-6<r){
+            double m =(l+r)/2.0;
+            if(min_k_for_d(m)<=K) r=m;//take lower bound, since we need to get smallest possible value. 
+            else l=m;
+        }
+        return l;
+    }
+    
+    int min_k_for_d(double D){
+        int ans=0;
+        for(int i=1;i<stations.size();i++)
+            ans+=(stations[i]-stations[i-1])/D;
+        return ans;
+        
+    }
+      
+};
 ```
