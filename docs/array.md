@@ -109,7 +109,7 @@ public:
 ## [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 1. traverse through all the positions, and only check back when encountering a descending bar, which is a potential bottle-neck
 2. use a stack to store previous positions need to check.
-
+3. the problem stub is once we encounter a element smaller than previous one, we start to form the rectangle.
 
 ```c++
 class Solution {

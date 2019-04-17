@@ -307,3 +307,45 @@ public:
     }
 };
 ```
+
+
+
+## [767. Reorganize String](https://leetcode.com/problems/reorganize-string/)
+
+
+```c++
+class Solution {
+//1. count all the characters, sort by the char count.
+//2. We can define a new class to incorporate char and count, or we can directly encode char and count into one int, this is convenient for sorting and we can extract it later.
+//3. from high to low count, resolve and print out each character. Once the char count is larger than the remaining sum, return empty
+//4. use a char buffer for printing.
+public:
+    string reorganizeString(string S) {
+        int N=S.size();
+        char buffer[N+1];
+        int counts[26];
+        fill(counts,counts+26,0);
+        buffer[N]=0;
+        int t=1; 
+        for(char c: S) 
+            counts[c-'a']+=100;
+        for(int i=0;i<26;i++)
+            counts[i]+=i;
+        sort(counts,counts+26);
+        
+        for(int i=0;i<26;i++){
+            int count=counts[i]/100;
+            char ch=(char)(counts[i]%100+'a');
+            if(count>(N+1)/2) return "";
+            while(count--){
+                buffer[t]=ch;
+                t+=2;
+                if(t>=N) t=0;
+                
+            }
+        }
+        
+        return string(buffer);
+    }
+};
+```
