@@ -138,3 +138,102 @@ public:
     }
 };
 ```
+
+
+
+## [803. Bricks Falling When Hit](https://leetcode.com/problems/bricks-falling-when-hit/)
+1. starting from when all the hits are completed
+2. join bricks from end to start, and count the number of bricks attached to the roof before and after each join, then the faling bricks will be the discrepancy of the two minus 1.  
+3. there's still bugs
+
+
+```c++
+class DSU{
+public:
+    vector<int> parent;
+    vector<int> rank;
+    vector<int> sz;//the size of each set;
+    
+    DSU(int N){
+        parent=vector<int>(N);
+        rank=vector<int>(N);
+        sz=vector<int>(N);
+        for(int i=0; i<N;i++) parent[i]=i;
+        fill(begin(sz),begin(sz),1);
+    }
+    
+    int find(int x){
+        if(parent[x]!=x) return find(parent[x]);
+        return parent[x];
+    }
+    
+    void uni(int x, int y){
+        int xp=find(x);
+        int yp=find(y);
+        if(xp==yp) return;
+        if(rank[xp]<rank[yp]) swap(xp,yp);
+        if(rank[xp]==rank[yp]) rank[xp]++;
+        parent[yp]=xp;
+        sz[xp]+=sz[yp];     
+    }  
+    
+    int size(int x){
+        return sz[find(x)];
+    }  
+    int top(){
+        return size(sz.size()-1);
+    }  
+};
+
+
+class Solution {
+public:
+    vector<int> hitBricks(vector<vector<int>>& grid, vector<vector<int>>& hits){  
+        int R =grid.size(), C=grid[0].size();
+        int dr[]={1,0,-1,0};
+        int dc[]={0,1,0,-1};
+        
+        vector<vector<int>> A(grid);
+        for(auto hit : hits)
+            A[hit[0]][hit[1]]=0;//starting from all hits completed
+        
+        DSU dsu(R*C+1);
+        for(int r=0;r<R;r++){
+            for(int c=0;c<C;c++){
+                if(A[r][c]==1){
+                    int id=r*C+c;
+                    if(r==0) dsu.uni(id,R*C);
+                    if(r>0 && A[r-1][c]==1) dsu.uni(id,(r-1)*C+c);
+                    if(c>0 && A[r][c-1]==1) dsu.uni(id,r*C+(c-1));
+                }      
+            }
+        }
+        
+        int h=hits.size();
+        vector<int> ans(h--);
+        
+        
+        for(auto hit : hits){
+            int pre_roof=dsu.top();
+            int r=hit[0];
+            int c=hit[1];
+            if(grid[r][c]==0) {
+                h--;
+                continue;
+            }
+            int id=r*C+c;
+            for(int k=0;k<4;k++){
+                int nr=r+dr[k];
+                int nc=c+dc[k];
+                if(nr>=0 && nr<R && nc>=0 && nc<C && A[nr][nc]==1)
+                    dsu.uni(id,nr*C+nc);
+            }
+            if(r==0) dsu.uni(id,R*C);
+            A[r][c]=1;
+            ans[h--]=max(0,dsu.top()-pre_roof-1);
+            
+        }
+        return ans;
+    }
+};
+```
