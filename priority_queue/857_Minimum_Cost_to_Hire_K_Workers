@@ -2,6 +2,8 @@
 //2. use a priority queue(max heap) to store current adopted worker quality. aways pop largest quality out 
 //3. accumulate the minmum wage on the way
 //4. O(nlogn) time complexity
+//5. a greedy method, try from the least quality worker with least wage expection/ quality ratio
+
 class Worker {
 public:
     int quality, wage;
