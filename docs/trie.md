@@ -306,3 +306,108 @@ public:
     }    
 };
 ```
+
+## [642. Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/)
+1. use a trie to store previous sentences
+2. lookup sentence by prefix and sort them
+3. still have bugs
+
+
+```c++
+class Trie{
+public:
+    int times=0;
+    Trie* branches[27];
+    Trie(){
+        for(int i=0;i<27;i++) branches[i]=nullptr;
+        this->times=times;
+    }
+};
+
+class sentence{
+public:
+    string s;
+    int times;
+    sentence(string s, int t){
+        this->s=s;
+        this->times=t;
+    }
+    bool operator < (sentence b){
+        return times==b.times?s<b.s:times<b.times;
+    }
+};
+
+
+class AutocompleteSystem {
+public:
+    Trie* root;
+    string cur_sent;
+    int ctoi(char c){
+        return c==' '?26:c-'a';
+    }
+    char itoc(int i){
+        return i<=25?(char)(i+'a'):' ';
+    }
+    
+    AutocompleteSystem(vector<string>& sentences, vector<int>& times) {
+        root=new Trie();
+        for(int i=0;i<sentences.size();i++)
+            insert(root,sentences[i],times[i]);
+    }
+        
+    void insert(Trie* root, string s, int times){
+        for(int i=0;i<s.size();i++){
+            if(root->branches[ctoi(s[i])]==nullptr) 
+                root->branches[ctoi(s[i])]=new Trie();
+            root=root->branches[ctoi(s[i])];    
+        } 
+        root->times+=times;
+    }
+    
+    vector<sentence> lookup(Trie* root, string s){
+        vector<sentence> list ;
+        
+        for(int i=0; i< s.size();i++){
+            cout<<ctoi(s[i])<<"\n";
+            if(root->branches[ctoi(s[i])]==nullptr)
+                return list;
+            root=root->branches[ctoi(s[i])];
+        }
+        traverse(root,s,list);
+        return list;
+        
+    } 
+    
+    void traverse(Trie* root, string s,vector<sentence> list){
+        if(root->times>0) list.push_back(sentence(s,root->times));
+        for(int i=0;i<=26;i++)
+            if(root->branches[itoc(i)]!=nullptr)
+                traverse(root->branches[i],s+itoc(i),list);
+    }
+    
+    
+    
+    vector<string> input(char c) {
+        vector<string> ans;
+        if(c=='#'){
+            insert(root,cur_sent,1);
+            cur_sent="";
+        }
+        else{
+            cur_sent+=c;
+            vector<sentence> list=lookup(root,cur_sent);
+            sort(begin(list),end(list));
+            for(int i=0; i<min(3,(int)list.size());i++)
+                ans.push_back(list[i].s);
+            
+        }
+        return ans;
+    }
+};
+
+/**
+ * Your AutocompleteSystem object will be instantiated and called as such:
+ * AutocompleteSystem* obj = new AutocompleteSystem(sentences, times);
+ * vector<string> param_1 = obj->input(c);
+ */
+```
