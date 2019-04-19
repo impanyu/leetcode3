@@ -375,3 +375,31 @@ public:
     }
 };
 ```
+
+
+
+## [163. Missing Ranges](https://leetcode.com/problems/missing-ranges/)
+
+
+```c++
+class Solution {
+//1. scan through nums, from i=0 to i=nums.size(). i indicates the ending of a section
+//2. print out the section if condition satisfied
+//3. use long int to accomodate int_max or int_min
+public:
+    string getRange(int start, int end){
+       string ans=start==end?to_string(start):to_string(start)+"->"+to_string(end);
+       return ans;
+    }
+    vector<string> findMissingRanges(vector<int>& nums, int lower, int upper) {
+        vector<string> ans;
+        long pre=(long)lower-1;
+        for(int i=0;i <= nums.size();i++){
+            long cur=i==nums.size()? (long)upper+1:nums[i];
+            if(cur-pre>=2)  ans.push_back(getRange(pre+1,cur-1));
+            pre=cur;
+        }
+        return ans;
+    }
+};
+```
